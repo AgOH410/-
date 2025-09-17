@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>客户信息录入</title>
+		<link rel="stylesheet" href="https://cdn.staticfile.net/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
+		<script src="https://cdn.staticfile.net/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="//unpkg.com/layui@2.11.6/dist/css/layui.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+		
+		<style>
+			#firstdiv{
+				background-image: url(../../img/bg.jpg);
+				height: 150px;
+				text-align: center;
+				color: white;
+				padding-top: 50px;
+				font-size: 50px;
+				font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+				box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+			}
+			#seconddiv{
+				background-color: white;
+				height: 90px;
+				padding-top: 15px;
+				box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+			}
+			#b{
+				background-color: #f8f9fa;
+				padding: 15px 35px;
+				font-size: 28px;
+				margin-bottom: 20px;
+				border-bottom: 1px solid #eaeaea;
+			}
+			#q{
+				width: 85%
+			}
+			.layui-side {
+				position: fixed;
+				left: 0;
+				bottom: 0;
+				z-index: 999;
+				width: 200px;
+				overflow-x: hidden;
+			}
+			#main{
+				width: 80%; 
+				max-width: 800px;
+				margin: 0 auto; 
+				padding: 30px;
+				margin-bottom: 40px;
+				background: white;
+				border-radius: 8px;
+				box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+			}
+			#button{
+				width: 100%;
+				height: 50px;
+				background: #007AFF;
+				color: white;
+				border: none;
+				border-radius: 4px;
+				font-size: 18px;
+				margin-top: 20px;
+				transition: all 0.3s;
+			}
+			#button:hover {
+				background: #0056b3;
+				transform: translateY(-2px);
+				box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+			}
+			.layui-form-label {
+				width: 120px;
+				font-weight: bold;
+			}
+			.layui-input-inline {
+				width: 280px;
+			}
+			.layui-form-item {
+				margin-bottom: 25px;
+			}
+			.required-label::after {
+				content: '*';
+				color: red;
+				margin-left: 4px;
+			}
+			.form-title {
+				font-size: 22px;
+				color: #333;
+				border-left: 4px solid #007AFF;
+				padding-left: 12px;
+				margin-bottom: 25px;
+			}
+			.error-tip {
+				color: red;
+				font-size: 13px;
+				margin-top: 5px;
+				display: block;
+			}
+			.get-code-btn {
+				margin-left: 10px;
+			}
+			.layui-nav-tree {
+				width: 200px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="firstdiv">
+			<b>欢 &nbsp;迎 &nbsp;进 &nbsp;入 &nbsp;敬 &nbsp;老 &nbsp;院 &nbsp;运 &nbsp;营 &nbsp;系 &nbsp;统</b>
+		</div>
+		<div class="layui-side layui-bg-black">
+			<ul class="layui-nav layui-nav-tree" lay-filter="test">
+			  <li class="layui-nav-item">
+			    <a href="../首页.html"><i class="fa fa-home mr-2"></i>首页</a>
+			  </li>
+			  <li class="layui-nav-item">
+			    <a href="javascript:;"><i class="fa fa-hand-paper-o mr-2"></i>服务管理</a>
+			    <dl class="layui-nav-child">
+			      <dd><a href="../服务管理/生活需求管理.html">生活需求管理</a></dd>
+			      <dd><a href="../服务管理/需求记录跟踪.html">需求记录跟踪</a></dd>
+			    </dl>
+			  </li>
+			  <li class="layui-nav-item">
+			    <a href="javascript:;"><i class="fa fa-heartbeat mr-2"></i>健康管理</a>
+			    <dl class="layui-nav-child">
+			      <dd><a href="../健康管理/实时健康指标查看.html">实时健康指标查看</a></dd>
+			      <dd><a href="../健康管理/健康数据历史查询.html">健康数据历史查询</a></dd>
+			    </dl>
+			  </li>
+			  <li class="layui-nav-item">
+			    <a href="javascript:;"><i class="fa fa-cutlery mr-2"></i>餐饮管理</a>
+			    <dl class="layui-nav-child">
+			      <dd><a href="../餐饮管理/健康饮食方案制定.html">健康饮食方案制定</a></dd>
+			      <dd><a href="../餐饮管理/每日餐食记录.html">每日餐食记录</a></dd>
+			    </dl>
+			  </li>
+			  <li class="layui-nav-item">
+			    <a href="javascript:;"><i class="fa fa-futbol-o mr-2"></i>活动管理</a>
+			    <dl class="layui-nav-child">
+			      <dd><a href="../活动管理/日常娱乐活动管理.html">日常娱乐活动管理</a></dd>
+			      <dd><a href="../活动管理/大型娱乐活动统筹.html">大型娱乐活动统筹</a></dd>
+			    </dl>
+			  </li>
+			  <li class="layui-nav-item layui-nav-itemed">
+			    <a href="javascript:;"><i class="fa fa-users mr-2"></i>客户管理</a>
+			    <dl class="layui-nav-child">
+			      <dd><a href="../客户管理/客户信息录入.html">客户信息录入</a></dd>
+			      <dd><a href="../客户管理/客户信息查询管理.html">客户信息查询管理</a></dd>
+				  <dd><a href="../客户管理/客户统计.html">客户统计</a></dd>
+			    </dl>
+			  </li>
+			  <li class="layui-nav-item">
+			    <a href="javascript:;"><i class="fa fa-list-alt mr-2"></i>订单管理</a>
+			    <dl class="layui-nav-child">
+			      <dd><a href="../订单管理/订单接受与记录.html">订单接收与记录</a></dd>
+			      <dd><a href="../订单管理/订单处理与跟踪.html">订单处理与跟踪</a></dd>
+				</dl>
+			  </li>
+			</ul>
+		</div>
+		
+		<div class="layui-body" id="q">
+			<div id="b">
+				<b>客户信息录入</b>
+			</div>
+			
+			<div id="main">
+				<div class="form-title">基本信息</div>
+				<form class="layui-form" lay-filter="customer-form">
+				  <div class="layui-form-item">
+				    <label class="layui-form-label required-label">姓名</label>
+				    <div class="layui-input-inline layui-input-wrap">
+				      <input type="text" id="username" name="username" lay-verify="required|username" placeholder="请输入2-6位汉字" autocomplete="off" class="layui-input">
+				    </div>
+				    <div class="layui-form-mid error-tip" id="unametip"></div>
+				  </div>
+				  
+				  <div class="layui-form-item">
+				    <label class="layui-form-label required-label">年龄</label>
+				    <div class="layui-input-inline layui-input-wrap">
+				      <input type="text" id="age" name="age" lay-verify="required|age" autocomplete="off" class="layui-input" placeholder="请输入年龄">
+				    </div>
+				    <div class="layui-form-mid error-tip" id="agetip"></div>
+				  </div>
+				  
+				  <div class="layui-form-item">
+				    <label class="layui-form-label required-label">性别</label>
+				    <div class="layui-input-block">
+				      <input type="radio" name="sex" value="男" title="男" checked>
+				      <input type="radio" name="sex" value="女" title="女">
+				    </div>
+				  </div>
+				  
+				  <div class="layui-form-item">
+				    <div class="layui-inline">
+				      <label class="layui-form-label required-label">联系方式</label>
+				      <div class="layui-input-inline layui-input-wrap">
+				        <input type="tel" id="phonenumber1" name="phone" lay-verify="required|phone" autocomplete="off" placeholder="请输入手机号" class="layui-input">
+				      </div>
+				      <div class="layui-form-mid"> 
+				        <button type="button" class="layui-btn layui-btn-primary get-code-btn" id="get-code-btn1">获取验证码</button>
+				      </div>
+				    </div>
+				    <div class="layui-form-mid error-tip" id="upntip1"></div>
+				  </div>
+				  
+				  <div class="layui-form-item">
+				    <label class="layui-form-label">验证码</label>
+				    <div class="layui-input-inline layui-input-wrap">
+				      <input type="text" name="vercode1" lay-verify="vercode" autocomplete="off" placeholder="请输入验证码" class="layui-input">
+				    </div>
+				  </div>
+				  
+				  <div class="layui-form-item">
+				    <label class="layui-form-label required-label">籍贯</label>
+				    <div class="layui-input-inline layui-input-wrap">
+				      <input type="text" id="jg" name="hometown" lay-verify="required|hometown" autocomplete="off" placeholder="请输入籍贯" class="layui-input">
+				    </div>
+				    <div class="layui-form-mid error-tip" id="jgtip"></div>
+				  </div>
+				  
+				  <div class="layui-form-item">
+				    <label class="layui-form-label required-label">家庭住址</label>
+				    <div class="layui-input-inline layui-input-wrap">
+				      <input type="text" id="home" name="address" lay-verify="required|address" autocomplete="off" placeholder="请输入家庭住址" class="layui-input">
+				    </div>
+				    <div class="layui-form-mid error-tip" id="hometip"></div>
+				  </div>
+				  
+				  <div class="form-title" style="margin-top: 40px;">子女信息</div>
+				  
+				  <div class="layui-form-item">
+				    <div class="layui-inline">
+				      <label class="layui-form-label required-label">子女号码</label>
+				      <div class="layui-input-inline layui-input-wrap">
+				        <input type="tel" id="phonenumber2" name="child_phone" lay-verify="required|phone" autocomplete="off" placeholder="请输入子女手机号" class="layui-input">
+				      </div>
+				      <div class="layui-form-mid"> 
+				        <button type="button" class="layui-btn layui-btn-primary get-code-btn" id="get-code-btn2">获取验证码</button>
+				      </div>
+				    </div>
+				    <div class="layui-form-mid error-tip" id="upntip2"></div>
+				  </div>
+				  
+				  <div class="layui-form-item">
+				    <label class="layui-form-label">验证码</label>
+				    <div class="layui-input-inline layui-input-wrap">
+				      <input type="text" name="vercode2" lay-verify="vercode" autocomplete="off" placeholder="请输入验证码" class="layui-input">
+				    </div>
+				  </div>
+				  
+				  <div class="layui-form-item">
+				    <div class="layui-input-block">
+				      <button class="layui-btn" lay-submit lay-filter="formDemo" id="button">立即提交</button>
+				    </div>
+				  </div>
+				</form>
+			</div>
+		</div>
+
+		<script src="//unpkg.com/layui@2.11.6/dist/layui.js"></script>
+		<script>
+		layui.use(['form', 'layer', 'element'], function(){
+		  var form = layui.form;
+		  var layer = layui.layer;
+		  var element = layui.element;
+		  
+		  // 初始化导航菜单
+		  element.init();
+		  
+		  // 自定义验证规则
+		  form.verify({
+		    username: function(value){
+		      if(!/^[\u4e00-\u9fa5]{2,6}$/.test(value)){
+		        document.getElementById("unametip").innerText = "请输入2-6位汉字";
+		        return "姓名格式不正确";
+		      } else {
+		        document.getElementById("unametip").innerText = "";
+		      }
+		    },
+		    age: function(value){
+		      if(!/^[0-9]{1,2}$/.test(value) || parseInt(value) < 1 || parseInt(value) > 120){
+		        document.getElementById("agetip").innerText = "请输入1-120之间的数字";
+		        return "年龄格式不正确";
+		      } else {
+		        document.getElementById("agetip").innerText = "";
+		      }
+		    },
+		    phone: function(value){
+		      if(!/^1[0-9]{11}$/.test(value)){
+		        return "手机号格式不正确";
+		      }
+		    },
+		    hometown: function(value){
+		      if(!/^[\u4e00-\u9fa5]{2,}$/.test(value)){
+		        document.getElementById("jgtip").innerText = "请输入2位以上汉字";
+		        return "籍贯格式不正确";
+		      } else {
+		        document.getElementById("jgtip").innerText = "";
+		      }
+		    },
+		    address: function(value){
+		      if(!/^[\u4e00-\u9fa5]{2,}$/.test(value)){
+		        document.getElementById("hometip").innerText = "请输入2位以上汉字";
+		        return "家庭住址格式不正确";
+		      } else {
+		        document.getElementById("hometip").innerText = "";
+		      }
+		    },
+		    vercode: function(value){
+		      if(value && !/^\d{4,6}$/.test(value)){
+		        return "验证码格式不正确";
+		      }
+		    }
+		  });
+		  
+		  // 提交监听
+		  form.on('submit(formDemo)', function(data){
+		    layer.msg('提交成功！客户信息已保存', {icon: 1, time: 2000}, function(){
+		      // 这里可以添加跳转逻辑
+		      // window.location.href = "客户信息查询管理.html";
+		    });
+		    return false; // 阻止表单跳转
+		  });
+		  
+		  // 获取验证码按钮点击事件
+		  document.getElementById('get-code-btn1').addEventListener('click', function() {
+		    var phone = document.getElementById('phonenumber1').value;
+		    if(/^1[3-9]\d{9}$/.test(phone)) {
+		      layer.msg('验证码已发送到' + phone);
+		      // 这里可以添加发送验证码的逻辑
+		    } else {
+		      layer.msg('请输入正确的手机号');
+		    }
+		  });
+		  
+		  document.getElementById('get-code-btn2').addEventListener('click', function() {
+		    var phone = document.getElementById('phonenumber2').value;
+		    if(/^1[3-9]\d{9}$/.test(phone)) {
+		      layer.msg('验证码已发送到' + phone);
+		      // 这里可以添加发送验证码的逻辑
+		    } else {
+		      layer.msg('请输入正确的手机号');
+		    }
+		  });
+		});
+		</script>
+	</body>
+</html>
