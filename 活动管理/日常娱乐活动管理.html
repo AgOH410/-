@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>日常娱乐活动管理</title>
+		<link rel="stylesheet" href="https://cdn.staticfile.net/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
+		<script src="https://cdn.staticfile.net/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+		<script src="https://cdn.tailwindcss.com"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="../lib/layui-v2.6.3/css/layui.css" media="all">
+		<link rel="stylesheet" href="../css/public.css" media="all">
+		<script src="https://cdn.jsdelivr.net/npm/echarts@4.3.0/dist/echarts.min.js"></script>
+		<style>
+			#firstdiv{
+				background-image: url("../img/bg.jpg");
+				height: 150px;
+				text-align: center;
+				color: white;
+				padding-top: 50px;
+				font-size: 50px;
+				font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+			}
+			#b{
+				padding-left: 35px;
+				font-size: 35px;
+			}
+			#q{
+				width: 85%;
+			}
+			.calendar-grid {
+			    display: grid;
+			    grid-template-columns: repeat(7, 1fr);
+			    gap: 4px;
+			    text-align: center;
+			}
+			.calendar-day {
+			    height: 40px;
+			    display: flex;
+			    align-items: center;
+			    justify-content: center;
+			    border-radius: 8px;
+			    cursor: pointer;
+			    transition: all 0.2s;
+			}
+			.calendar-day:hover {
+			    background-color: #f3f4f6;
+			}
+			.calendar-day.current-month {
+			    color: #1f2937;
+			}
+			.calendar-day.other-month {
+			    color: #d1d5db;
+			}
+			.calendar-day.selected {
+			    background-color: #3b82f6;
+			    color: white;
+			}
+			.calendar-day.today {
+			    border: 2px solid #3b82f6;
+			}
+			.loading {
+			    opacity: 0.7;
+			    pointer-events: none;
+			}
+			.text-primary {
+			    color: #3b82f6;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="firstdiv">
+			<b>欢 &nbsp&nbsp;迎&nbsp;&nbsp 进&nbsp;&nbsp 入&nbsp;&nbsp 敬&nbsp;&nbsp 老&nbsp;&nbsp 院&nbsp;&nbsp 运&nbsp;&nbsp 营&nbsp;&nbsp 系&nbsp;&nbsp 统</b>
+		</div>
+		<div class="layui-side layui-bg-black layuimini-left" layuimini-tab-tag="no">
+		<ul class="layui-nav layui-nav-tree">
+			
+		  <li class="layui-nav-item">
+		    <a href="../首页.html"><i class="fa fa-home mr-2"></i>首页</a>
+		  </li>
+		  <li class="layui-nav-item">
+		    <a><i class="fa fa-hand-paper-o mr-2"></i>服务管理</a>
+		    <dl class="layui-nav-child">
+		      <dd><a href="../服务管理/生活需求管理.html">生活需求管理</a></dd>
+		      <dd><a href="../服务管理/需求记录跟踪.html">需求记录跟踪</a></dd>
+		    </dl>
+		  </li>
+		  <li class="layui-nav-item">
+		    <a><i class="fa fa-heartbeat mr-2"></i>健康管理</a>
+		    <dl class="layui-nav-child">
+		      <dd><a href="../健康管理/实时健康指标查看.html">实时健康指标查看</a></dd>
+		      <dd><a href="../健康管理/健康数据历史查询.html">健康数据历史查询</a></dd>
+		    </dl>
+		  </li>
+		  <li class="layui-nav-item">
+		    <a><i class="fa fa-cutlery mr-2"></i>餐饮管理</a>
+		    <dl class="layui-nav-child">
+		      <dd><a href="../餐饮管理/健康饮食方案制定.html">健康饮食方案制定</a></dd>
+		      <dd><a href="../餐饮管理/每日餐食记录.html">每日餐食记录</a></dd>
+		    </dl>
+		  </li>
+		  <li class="layui-nav-item">
+		    <a><i class="fa fa-futbol-o mr-2"></i>活动管理</a>
+		    <dl class="layui-nav-child">
+		      <dd><a href="../活动管理/日常娱乐活动管理.html">日常娱乐活动管理</a></dd>
+		      <dd><a href="../活动管理/大型娱乐活动统筹.html">大型娱乐活动统筹</a></dd>
+		    </dl>
+		  </li>
+		  <li class="layui-nav-item">
+		    <a><i class="fa fa-users mr-2"></i>客户管理</a>
+		    <dl class="layui-nav-child">
+		      <dd><a href="../客户管理/客户信息录入.html">客户信息录入</a></dd>
+		      <dd><a href="../客户管理/客户信息查询管理.html">客户信息查询管理</a></dd>
+			  <dd><a href="../客户管理/客户统计.html">客户统计</a></dd>
+		    </dl>
+		  </li>
+		  <li class="layui-nav-item">
+		    <a><i class="fa fa-list-alt mr-2"></i>订单管理</a>
+		    <dl class="layui-nav-child">
+		      <dd><a href="../订单管理/订单接受与记录.html">订单接收与记录</a></dd>
+		      <dd><a href="../订单管理/订单处理与跟踪.html">订单处理与跟踪</a></dd>
+			</dl>
+		  </li>
+		</ul>
+		<script src="//unpkg.com/layui@2.11.6/dist/layui.js"></script>
+		</div>
+		<div class="layui-body" id="q">
+		<div id="b">
+			<b>日常娱乐活动管理</b>
+		</div>
+		
+		
+		<div class="container mx-auto px-4">
+		    <section class="mb-8 bg-white rounded-xl shadow-md p-6">
+		        <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+		            <h3 class="text-xl font-semibold mb-4 md:mb-0">选择查看日期</h3>
+		            
+		            <div class="flex items-center space-x-4">
+		                <button id="prevDay" class="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors">
+		                    <i class="fa fa-chevron-left text-gray-600"></i>
+		                </button>
+		                
+		                <div id="currentDateText" class="text-xl font-medium">2025年09月11日 星期四</div>
+		                
+		                <button id="nextDay" class="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors">
+		                    <i class="fa fa-chevron-right text-gray-600"></i>
+		                </button>
+		                
+		                <button id="todayBtn" class="bg-blue-100 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-200 transition-colors">
+		                    今天
+		                </button>
+		            </div>
+		        </div>
+		        
+		        <!-- 日历网格 -->
+		        <div class="calendar-grid">
+		            <div class="text-sm font-medium text-gray-500 py-2">日</div>
+		            <div class="text-sm font-medium text-gray-500 py-2">一</div>
+		            <div class="text-sm font-medium text-gray-500 py-2">二</div>
+		            <div class="text-sm font-medium text-gray-500 py-2">三</div>
+		            <div class="text-sm font-medium text-gray-500 py-2">四</div>
+		            <div class="text-sm font-medium text-gray-500 py-2">五</div>
+		            <div class="text-sm font-medium text-gray-500 py-2">六</div>
+		            
+		            <!-- 日期单元格将通过JavaScript动态生成 -->
+		            <div id="calendarDays" class="contents"></div>
+		        </div>
+		    </section>
+		    
+		    <!-- 每日活动记录（替换原餐饮记录） -->
+		    <section class="mb-10" id="activitiesSection">
+		        <h3 class="text-2xl font-bold mb-6 flex items-center">
+		            <i class="fa fa-list-alt text-blue-500 mr-2"></i> 每日娱乐活动记录
+		        </h3>
+		        
+		        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+		            <!-- 上午活动 -->
+		            <div class="bg-white rounded-xl shadow-md overflow-hidden">
+		                <div class="bg-blue-500 text-white p-4">
+		                    <div class="flex justify-between items-center">
+		                        <h4 class="text-xl font-bold flex items-center">
+		                            <i class="fa fa-sun-o mr-2"></i> 上午活动
+		                        </h4>
+		                        <span class="text-sm bg-white/20 px-2 py-1 rounded" id="amTime">--:--</span>
+		                    </div>
+		                </div>
+		                
+		                <div class="p-5">
+		                    <div class="mb-4">
+		                        <h5 class="text-gray-600 font-medium mb-2">活动内容</h5>
+		                        <ul class="space-y-2" id="amActivity">
+		                            <li class="flex justify-between items-center text-gray-600">
+		                                <span>加载中...</span>
+		                            </li>
+		                        </ul>
+		                    </div>
+		                    <div>
+		                        <h5 class="text-gray-600 font-medium mb-2">活动备注</h5>
+		                        <p class="text-sm bg-gray-50 p-3 rounded-lg border border-gray-100" id="amNotes">
+		                            暂无数据
+		                        </p>
+		                    </div>
+		                </div>
+		            </div>
+		            
+		            <!-- 下午活动 -->
+		            <div class="bg-white rounded-xl shadow-md overflow-hidden">
+		                <div class="bg-purple-500 text-white p-4">
+		                    <div class="flex justify-between items-center">
+		                        <h4 class="text-xl font-bold flex items-center">
+		                            <i class="fa fa-moon-o mr-2"></i> 下午活动
+		                        </h4>
+		                        <span class="text-sm bg-white/20 px-2 py-1 rounded" id="pmTime">--:--</span>
+		                    </div>
+		                </div>
+		                
+		                <div class="p-5">
+		                    <div class="mb-4">
+		                        <h5 class="text-gray-600 font-medium mb-2">活动内容</h5>
+		                        <ul class="space-y-2" id="pmActivity">
+		                            <li class="flex justify-between items-center text-gray-600">
+		                                <span>加载中...</span>
+		                            </li>
+		                        </ul>
+		                    </div>
+		                    <div>
+		                        <h5 class="text-gray-600 font-medium mb-2">活动备注</h5>
+		                        <p class="text-sm bg-gray-50 p-3 rounded-lg border border-gray-100" id="pmNotes">
+		                            暂无数据
+		                        </p>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </section>
+			
+			<!-- 活动参与统计（替换原营养统计） -->
+			<section class="mb-10" id="activityStatsSection">
+			    <h3 class="text-2xl font-bold mb-6 flex items-center">
+			        <i class="fa fa-pie-chart text-primary mr-2"></i> 活动参与统计
+			    </h3>
+			    
+			    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+			        <!-- 活动类型分布 -->
+			        <div class="bg-white rounded-xl shadow-md p-6">
+			            <h4 class="text-lg font-semibold mb-4">活动类型参与分布</h4>
+			            <div class="h-80">
+			                <canvas id="activityTypeChart"></canvas>
+			            </div>
+			        </div>
+			        
+			        <!-- 上下午参与对比 -->
+			        <div class="bg-white rounded-xl shadow-md p-6">
+			            <h4 class="text-lg font-semibold mb-4">上下午活动参与对比</h4>
+			            <div class="h-80">
+			                <canvas id="amPmCompareChart"></canvas>
+			            </div>
+			        </div>
+			    </div>
+			</section>
+			
+		</div>
+		</div>
+		
+		<script>
+			// 图表实例变量（替换原营养图表）
+			let activityTypeChart, amPmCompareChart;
+			// 活动统计数据（适配新JSON格式）
+			let activityStatsData = {
+			    typeCount: { // 活动类型参与次数
+			        "麻将": 0,
+			        "广场舞": 0,
+			        "书法": 0,
+			        "棋牌": 0,
+			        "手工": 0
+			    },
+			    amPmCount: { // 上下午参与人数
+			        "上午": 0,
+			        "下午": 0
+			    }
+			};
+			
+			// 初始化活动统计图表（替换原营养图表）
+			function initCharts() {
+			    // 活动类型分布图表（饼图）
+			    const typeCtx = document.getElementById('activityTypeChart');
+			    if (typeCtx) {
+			        activityTypeChart = new Chart(typeCtx.getContext('2d'), {
+			            type: 'pie',
+			            data: {
+			                labels: Object.keys(activityStatsData.typeCount),
+			                datasets: [{
+			                    label: '活动参与次数',
+			                    data: Object.values(activityStatsData.typeCount),
+			                    backgroundColor: [
+			                        'rgba(79, 70, 229, 0.7)',
+			                        'rgba(236, 72, 153, 0.7)',
+			                        'rgba(34, 211, 238, 0.7)',
+			                        'rgba(16, 185, 129, 0.7)',
+			                        'rgba(245, 158, 11, 0.7)'
+			                    ],
+			                    borderWidth: 1
+			                }]
+			            },
+			            options: {
+			                responsive: true,
+			                maintainAspectRatio: false,
+			                plugins: { legend: { position: 'bottom' } }
+			            }
+			        });
+			    }
+			    
+			    // 上下午参与对比图表（柱状图）
+			    const amPmCtx = document.getElementById('amPmCompareChart');
+			    if (amPmCtx) {
+			        amPmCompareChart = new Chart(amPmCtx.getContext('2d'), {
+			            type: 'bar',
+			            data: {
+			                labels: Object.keys(activityStatsData.amPmCount),
+			                datasets: [{
+			                    label: '参与人数（人）',
+			                    data: Object.values(activityStatsData.amPmCount),
+			                    backgroundColor: [
+			                        'rgba(59, 130, 246, 0.7)',
+			                        'rgba(168, 85, 247, 0.7)'
+			                    ],
+			                    borderWidth: 1
+			                }]
+			            },
+			            options: {
+			                responsive: true,
+			                maintainAspectRatio: false,
+			                scales: { y: { beginAtZero: true, stepSize: 5 } }
+			            }
+			        });
+			    }
+			}
+			
+			// 更新活动统计图表数据
+			function updateActivityCharts() {
+			    if (activityTypeChart) {
+			        activityTypeChart.data.datasets[0].data = Object.values(activityStatsData.typeCount);
+			        activityTypeChart.update();
+			    }
+			    
+			    if (amPmCompareChart) {
+			        amPmCompareChart.data.datasets[0].data = Object.values(activityStatsData.amPmCount);
+			        amPmCompareChart.update();
+			    }
+			}
+			
+			// 日期格式化工具函数（保留原功能）
+			function formatDate(date) {
+			    const year = date.getFullYear();
+			    const month = String(date.getMonth() + 1).padStart(2, '0');
+			    const day = String(date.getDate()).padStart(2, '0');
+			    return `${year}-${month}-${day}`;
+			}
+			
+			// 加载指定日期的活动数据（核心修改：适配新JSON格式）
+			function loadActivityDataByDate(targetDate) {
+				setLoadingState(true);
+		        resetActivityStatsData(); // 重置活动统计数据
+		
+		        // 请求活动JSON文件（路径根据实际项目调整）
+		        fetch('../JSON/活动.json')
+		            .then(response => {
+		                if (!response.ok) {
+		                    throw new Error(`JSON文件请求失败：${response.status}（请检查文件路径）`);
+		                }
+		                return response.json();
+		            })
+		            .then(allActivityData => {
+		                // 根据目标日期匹配数据（适配JSON的日期键格式）
+		                const dailyData = allActivityData[targetDate] || null;
+		
+		                if (dailyData) {
+		                    // 加载上午活动数据（JSON中键为"AM"）
+		                    if (dailyData.AM) {
+		                        updateActivityCard('am', dailyData.AM);
+		                        calculateActivityStats('上午', dailyData.AM);
+		                    }
+		                    // 加载下午活动数据（JSON中键为"PM"，兼容原JSON的"foods"字段）
+		                    if (dailyData.PM) {
+		                        updateActivityCard('pm', dailyData.PM);
+		                        calculateActivityStats('下午', dailyData.PM);
+		                    }
+		                    // 更新活动统计图表
+		                    updateActivityCharts();
+		                } else {
+		                    // 无该日期活动数据
+		                    showNoDataMessage();
+		                }
+		            })
+		            .catch(error => {
+		                console.error('读取活动JSON数据失败：', error);
+		                showErrorMessage();
+		            })
+		            .finally(() => {
+		                setLoadingState(false);
+		            });
+			}
+			
+			// 重置活动统计数据
+			function resetActivityStatsData() {
+			    activityStatsData = {
+			        typeCount: {
+			            "麻将": 0,
+			            "广场舞": 0,
+			            "书法": 0,
+			            "棋牌": 0,
+			            "手工": 0
+			        },
+			        amPmCount: {
+			            "上午": 0,
+			            "下午": 0
+			        }
+			    };
+			}
+			
+			// 计算活动统计数据（模拟参与人数和类型统计）
+			function calculateActivityStats(period, activityData) {
+			    // 活动类型与默认参与人数映射（可根据实际需求扩展）
+			    const activityConfig = {
+			        "麻将": { count: 4 },    // 麻将默认4人参与
+			        "广场舞": { count: 15 }, // 广场舞默认15人参与
+			        "书法": { count: 8 },    // 书法默认8人参与
+			        "棋牌": { count: 6 },    // 棋牌默认6人参与
+			        "手工": { count: 10 }    // 手工默认10人参与
+			    };
+			    
+			    // 获取活动内容（兼容AM的"action"和PM的"foods"字段）
+			    const activityContent = activityData.action || activityData.foods || "未知活动";
+			    
+			    // 统计活动类型次数
+			    if (activityConfig[activityContent]) {
+			        activityStatsData.typeCount[activityContent] += 1;
+			        // 统计上下午参与人数
+			        activityStatsData.amPmCount[period] = activityConfig[activityContent].count;
+			    } else {
+			        // 未知活动默认参与人数
+			        activityStatsData.amPmCount[period] = 5;
+			    }
+			}
+			
+			// 更新单个活动卡片数据（替换原餐食卡片）
+			function updateActivityCard(periodType, activityData) {
+			    // 更新活动时间
+			    document.getElementById(`${periodType}Time`).textContent = activityData.time || '--:--';
+			    
+			    // 更新活动内容（兼容AM的"action"和PM的"foods"字段）
+			    const activityList = document.getElementById(`${periodType}Activity`);
+			    activityList.innerHTML = '';
+			    
+			    const activityContent = activityData.action || activityData.foods || "无活动记录";
+			    const li = document.createElement('li');
+			    li.className = 'flex justify-between items-center';
+			    li.innerHTML = `
+			        <span class="flex items-center">
+			            <i class="fa fa-check-circle text-green-500 mr-2"></i>
+			            ${activityContent}
+			        </span>
+			        <span class="text-sm text-neutral">已安排</span>
+			    `;
+			    activityList.appendChild(li);
+			    
+			    // 更新活动备注
+			    document.getElementById(`${periodType}Notes`).textContent = activityData.notes || '无备注信息（默认参与人数根据活动类型估算）';
+			}
+			
+			// 设置加载状态（调整为活动相关区域）
+			function setLoadingState(isLoading) {
+			    const sections = [
+			        document.getElementById('activitiesSection'),
+			        document.getElementById('activityStatsSection')
+			    ];
+			    
+			    sections.forEach(section => {
+			        if (section) {
+			            section.classList.toggle('loading', isLoading);
+			        }
+			    });
+			}
+			
+			// 显示无活动数据消息
+			function showNoDataMessage() {
+			    // 重置所有活动卡片
+			    ['am', 'pm'].forEach(periodType => {
+			        document.getElementById(`${periodType}Time`).textContent = '--:--';
+			        document.getElementById(`${periodType}Activity`).innerHTML = 
+			            '<li class="text-neutral">无活动记录</li>';
+			        document.getElementById(`${periodType}Notes`).textContent = '该日无娱乐活动安排';
+			    });
+			    
+			    // 重置活动统计数据
+			    resetActivityStatsData();
+			    updateActivityCharts();
+			}
+			
+			// 显示活动数据加载错误消息
+			function showErrorMessage() {
+			    ['am', 'pm'].forEach(periodType => {
+			        document.getElementById(`${periodType}Notes`).textContent = '活动数据加载失败，请检查JSON文件路径或格式';
+			    });
+			}
+			
+		    document.addEventListener('DOMContentLoaded', function() {
+		        // 初始化活动统计图表
+		        initCharts();
+		        
+		        // 初始化日期（默认2025年9月11日，与JSON数据匹配）
+		        let currentDate = new Date(2025, 8, 11); 
+		        const calendarDaysContainer = document.getElementById('calendarDays');
+		        const currentDateText = document.getElementById('currentDateText');
+		        
+		        // 初始化日历（保留原功能）
+		        renderCalendar(currentDate);
+		        
+		        // 加载默认日期的活动数据（替换原餐食数据加载）
+		        loadActivityDataByDate(formatDate(currentDate));
+		        
+		        // 前一天按钮事件（保留原功能）
+		        document.getElementById('prevDay').addEventListener('click', function() {
+		            currentDate.setDate(currentDate.getDate() - 1);
+		            renderCalendar(currentDate);
+		            loadActivityDataByDate(formatDate(currentDate));
+		        });
+		        
+		        // 后一天按钮事件（保留原功能）
+		        document.getElementById('nextDay').addEventListener('click', function() {
+		            currentDate.setDate(currentDate.getDate() + 1);
+		            renderCalendar(currentDate);
+		            loadActivityDataByDate(formatDate(currentDate));
+		        });
+		        
+		        // 今天按钮事件（保留原功能）
+		        document.getElementById('todayBtn').addEventListener('click', function() {
+		            currentDate = new Date();
+		            renderCalendar(currentDate);
+		            loadActivityDataByDate(formatDate(currentDate));
+		        });
+		        
+		        // 日历渲染函数（保留原功能）
+		        function renderCalendar(date) {
+		            const year = date.getFullYear();
+		            const month = date.getMonth();
+		            
+		            // 更新顶部日期显示
+		            const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+		            currentDateText.textContent = `${year}年${String(month + 1).padStart(2, '0')}月${String(date.getDate()).padStart(2, '0')}日 ${weekdays[date.getDay()]}`;
+		            
+		            // 清空日历容器
+		            calendarDaysContainer.innerHTML = '';
+		            
+		            // 获取当月第一天和最后一天
+		            const firstDay = new Date(year, month, 1);
+		            const lastDay = new Date(year, month + 1, 0);
+		            const daysInMonth = lastDay.getDate();
+		            
+		            // 获取当月第一天是星期几 (0 = 周日, 1 = 周一, ...)
+		            const firstDayOfWeek = firstDay.getDay();
+		            
+		            // 计算需要显示的上月天数
+		            const daysFromPrevMonth = firstDayOfWeek;
+		            
+		            // 填充上月日期
+		            const prevMonthLastDay = new Date(year, month, 0).getDate();
+		            for (let i = 0; i < daysFromPrevMonth; i++) {
+		                const day = prevMonthLastDay - (daysFromPrevMonth - 1 - i);
+		                const dateObj = new Date(year, month - 1, day);
+		                const dayElement = createDayElement(dateObj, false);
+		                calendarDaysContainer.appendChild(dayElement);
+		            }
+		            
+		            // 填充当月日期
+		            for (let day = 1; day <= daysInMonth; day++) {
+		                const dateObj = new Date(year, month, day);
+		                const isToday = isSameDay(dateObj, new Date());
+		                const isSelected = isSameDay(dateObj, date);
+		                const dayElement = createDayElement(dateObj, true, isToday, isSelected);
+		                calendarDaysContainer.appendChild(dayElement);
+		            }
+		            
+		            // 计算需要显示的下月天数
+		            const totalCells = daysFromPrevMonth + daysInMonth;
+		            const daysFromNextMonth = 42 - totalCells; // 6行x7天=42个单元格
+		            
+		            // 填充下月日期
+		            for (let day = 1; day <= daysFromNextMonth; day++) {
+		                const dateObj = new Date(year, month + 1, day);
+		                const dayElement = createDayElement(dateObj, false);
+		                calendarDaysContainer.appendChild(dayElement);
+		            }
+		        }
+		        
+		        // 创建日历日期元素（保留原功能）
+		        function createDayElement(date, isCurrentMonth, isToday = false, isSelected = false) {
+		            const dayElement = document.createElement('div');
+		            dayElement.className = 'calendar-day';
+		            
+		            if (!isCurrentMonth) {
+		                dayElement.classList.add('other-month');
+		            } else {
+		                dayElement.classList.add('current-month');
+		            }
+		            
+		            if (isToday) {
+		                dayElement.classList.add('today');
+		            }
+		            
+		            if (isSelected) {
+		                dayElement.classList.add('selected');
+		            }
+		            
+		            dayElement.textContent = date.getDate();
+		            
+		            // 日期点击事件（加载对应日期活动数据）
+		            dayElement.addEventListener('click', function() {
+		                if (isCurrentMonth) {
+		                    currentDate = new Date(date);
+		                    renderCalendar(currentDate);
+		                    loadActivityDataByDate(formatDate(currentDate));
+		                }
+		            });
+		            
+		            return dayElement;
+		        }
+		        
+		        // 日期比较函数（保留原功能）
+		        function isSameDay(date1, date2) {
+		            return date1.getFullYear() === date2.getFullYear() &&
+		                   date1.getMonth() === date2.getMonth() &&
+		                   date1.getDate() === date2.getDate();
+		        }
+		    });
+		</script>
+	</body>
+</html>

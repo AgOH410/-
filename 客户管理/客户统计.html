@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>客户统计</title>
+		<link rel="stylesheet" href="https://cdn.staticfile.net/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
+		<script src="https://cdn.staticfile.net/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="../lib/layui-v2.6.3/css/layui.css" media="all">
+		<link rel="stylesheet" href="../css/public.css" media="all">
+		<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+		<style>
+			#firstdiv{
+				background-image: url("../img/bg.jpg");
+				height: 150px;
+				text-align: center;
+				color: white;
+				padding-top: 50px;
+				font-size: 50px;
+				font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+			}
+			#seconddiv{
+				background-color:white;
+				height: 90px;
+				padding-top: 15px;
+			}
+			#b{
+				padding-left: 35px;
+				font-size: 35px;
+			}
+			#q{
+				width: 85%;
+			}
+			.layui-side {
+				position: fixed;
+				left: 0;
+				bottom: 0;
+				z-index: 999;
+				width: 200px;
+				overflow-x: hidden;
+			}
+			.body-content {
+				padding: 20px;
+			}
+			.chart-container {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-around;
+				margin-top: 20px;
+			}
+			.chart-box {
+				width: 45%;
+				min-width: 300px;
+				height: 400px;
+				margin-bottom: 20px;
+				background: #fff;
+				border-radius: 5px;
+				box-shadow: 0 0 10px rgba(0,0,0,0.1);
+				padding: 15px;
+			}
+			.chart-title {
+				text-align: center;
+				font-size: 16px;
+				font-weight: bold;
+				margin-bottom: 15px;
+				color: #333;
+			}
+			.stats-cards {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-between;
+				margin-bottom: 20px;
+			}
+			.stat-card {
+				width: 23%;
+				min-width: 200px;
+				background: #fff;
+				border-radius: 5px;
+				box-shadow: 0 0 10px rgba(0,0,0,0.1);
+				padding: 15px;
+				margin-bottom: 15px;
+				text-align: center;
+			}
+			.stat-value {
+				font-size: 24px;
+				font-weight: bold;
+				color: #1E9FFF;
+				margin: 10px 0;
+			}
+			.stat-label {
+				font-size: 14px;
+				color: #666;
+			}
+			.filter-box {
+				background: #fff;
+				border-radius: 5px;
+				box-shadow: 0 0 10px rgba(0,0,0,0.1);
+				padding: 15px;
+				margin-bottom: 20px;
+			}
+			.layui-nav-tree {
+				width: 200px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="firstdiv">
+			<b>欢 &nbsp&nbsp;迎&nbsp;&nbsp 进&nbsp;&nbsp 入&nbsp;&nbsp 敬&nbsp;&nbsp 老&nbsp;&nbsp 院&nbsp;&nbsp 运&nbsp;&nbsp 营&nbsp;&nbsp 系&nbsp;&nbsp 统</b>
+		</div>
+		<div class="layui-side layui-bg-black">
+		<ul class="layui-nav layui-nav-tree" lay-filter="test">
+			
+		  <li class="layui-nav-item">
+		    <a href="../首页.html"><i class="fa fa-home mr-2"></i>首页</a>
+		  </li>
+		  <li class="layui-nav-item">
+		    <a href="javascript:;"><i class="fa fa-hand-paper-o mr-2"></i>服务管理</a>
+		    <dl class="layui-nav-child">
+		      <dd><a href="../服务管理/生活需求管理.html">生活需求管理</a></dd>
+		      <dd><a href="../服务管理/需求记录跟踪.html">需求记录跟踪</a></dd>
+		    </dl>
+		  </li>
+		  <li class="layui-nav-item">
+		    <a href="javascript:;"><i class="fa fa-heartbeat mr-2"></i>健康管理</a>
+		    <dl class="layui-nav-child">
+		      <dd><a href="../健康管理/实时健康指标查看.html">实时健康指标查看</a></dd>
+		      <dd><a href="../健康管理/健康数据历史查询.html">健康数据历史查询</a></dd>
+		    </dl>
+		  </li>
+		  <li class="layui-nav-item">
+		    <a href="javascript:;"><i class="fa fa-cutlery mr-2"></i>餐饮管理</a>
+		    <dl class="layui-nav-child">
+		      <dd><a href="../餐饮管理/健康饮食方案制定.html">健康饮食方案制定</a></dd>
+		      <dd><a href="../餐饮管理/每日餐食记录.html">每日餐食记录</a></dd>
+		    </dl>
+		  </li>
+		  <li class="layui-nav-item">
+		    <a href="javascript:;"><i class="fa fa-futbol-o mr-2"></i>活动管理</a>
+		    <dl class="layui-nav-child">
+		      <dd><a href="../活动管理/日常娱乐活动管理.html">日常娱乐活动管理</a></dd>
+		      <dd><a href="../活动管理/大型娱乐活动统筹.html">大型娱乐活动统筹</a></dd>
+		    </dl>
+		  </li>
+		  <li class="layui-nav-item layui-nav-itemed">
+		    <a href="javascript:;"><i class="fa fa-users mr-2"></i>客户管理</a>
+		    <dl class="layui-nav-child">
+		      <dd><a href="../客户管理/客户信息录入.html">客户信息录入</a></dd>
+		      <dd><a href="../客户管理/客户信息查询管理.html">客户信息查询管理</a></dd>
+			  <dd><a href="../客户管理/客户统计.html">客户统计</a></dd>
+		    </dl>
+		  </li>
+		  <li class="layui-nav-item">
+		    <a href="javascript:;"><i class="fa fa-list-alt mr-2"></i>订单管理</a>
+		    <dl class="layui-nav-child">
+		      <dd><a href="../订单管理/订单接受与记录.html">订单接收与记录</a></dd>
+		      <dd><a href="../订单管理/订单处理与跟踪.html">订单处理与跟踪</a></dd>
+			</dl>
+		  </li>
+		</ul>
+		</div>
+		<div class="layui-body" id="q">
+		<div id="b">
+			<b>客户统计</b>
+		</div>
+		<div class="body-content">
+			<div class="stats-cards">
+			  <div class="stat-card">
+			    <div class="stat-label">总客户数</div>
+			    <div class="stat-value" id="totalCustomers">0</div>
+			    <div class="stat-desc">较上月 <span id="totalGrowth">0</span></div>
+			  </div>
+			  <div class="stat-card">
+			    <div class="stat-label">本月新增</div>
+			    <div class="stat-value" id="monthlyNew">0</div>
+			    <div class="stat-desc">较上月 <span id="newGrowth">0</span></div>
+			  </div>
+			  <div class="stat-card">
+			    <div class="stat-label">平均年龄</div>
+			    <div class="stat-value" id="avgAge">0</div>
+			    <div class="stat-desc">较上月 <span id="ageGrowth">0</span></div>
+			  </div>
+			  <div class="stat-card">
+			    <div class="stat-label">客户满意度</div>
+			    <div class="stat-value" id="satisfaction">0</div>
+			    <div class="stat-desc">较上月 <span id="satisfactionGrowth">0</span></div>
+			  </div>
+			</div>
+			<!-- 图表区域 -->
+			<div class="chart-container">
+				<div class="chart-box">
+					<div class="chart-title">客户年龄分布</div>
+					<div id="age-chart" style="width: 100%; height: 350px;"></div>
+				</div>
+				<div class="chart-box">
+					<div class="chart-title">客户地区分布</div>
+					<div id="area-chart" style="width: 100%; height: 350px;"></div>
+				</div>
+				<div class="chart-box">
+					<div class="chart-title">服务类型分布</div>
+					<div id="service-chart" style="width: 100%; height: 350px;"></div>
+				</div>
+				<div class="chart-box">
+					<div class="chart-title">客户状态分布</div>
+					<div id="status-chart" style="width: 100%; height: 350px;"></div>
+				</div>
+			</div>
+		</div>
+		</div>
+<script src="../lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
+<script>
+// 加载Layui必要的模块
+layui.use(['form', 'laydate', 'layer', 'element'], function(){
+  var form = layui.form;
+  var laydate = layui.laydate;
+  var layer = layui.layer;
+  var element = layui.element;
+  // 初始化导航菜单
+  element.init();
+  // 日期范围选择
+  laydate.render({ elem: '#test1' });
+  laydate.render({ elem: '#test2' });
+  // 模拟数据（实际应用中应该从服务器获取）
+  var statsData = {
+    statsCards: {
+      totalCustomers: 156,
+      growthRates: {
+        totalCustomers: "+12%",
+        monthlyNew: "+5%",
+        avgAge: "+0.5%",
+        satisfaction: "+3%"
+      },
+      monthlyNew: 24,
+      avgAge: 72.5,
+      satisfaction: "92%"
+    },
+    charts: {
+      ageDistribution: [
+        { value: 35, name: '60-70岁' },
+        { value: 45, name: '70-80岁' },
+        { value: 55, name: '80-90岁' },
+        { value: 21, name: '90岁以上' }
+      ],
+      areaDistribution: [
+        { value: 45, name: '本地' },
+        { value: 35, name: '省内' },
+        { value: 20, name: '外省' }
+      ],
+      serviceDistribution: [
+        { value: 40, name: '基础护理' },
+        { value: 25, name: '医疗护理' },
+        { value: 20, name: '康复护理' },
+        { value: 15, name: '特殊护理' }
+      ],
+      statusDistribution: [
+        { value: 70, name: '在住' },
+        { value: 15, name: '试住' },
+        { value: 10, name: '预约' },
+        { value: 5, name: '离院' }
+      ]
+    }
+  };
+  // 填充统计卡片数据
+  function fillStatsCards(cardData) {
+    document.getElementById('totalCustomers').textContent = formatNumber(cardData.totalCustomers);
+    document.getElementById('totalGrowth').textContent = cardData.growthRates.totalCustomers;
+    document.getElementById('monthlyNew').textContent = cardData.monthlyNew;
+    document.getElementById('newGrowth').textContent = cardData.growthRates.monthlyNew;
+    document.getElementById('avgAge').textContent = cardData.avgAge;
+    document.getElementById('ageGrowth').textContent = cardData.growthRates.avgAge;
+    document.getElementById('satisfaction').textContent = cardData.satisfaction;
+    document.getElementById('satisfactionGrowth').textContent = cardData.growthRates.satisfaction;
+  }
+  // 数字格式化（千位分隔符）
+  function formatNumber(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+  // 用独立ECharts渲染图表
+  function renderAllCharts(chartData) {
+    // 1. 年龄分布图表
+    const ageChart = echarts.init(document.getElementById('age-chart'));
+    ageChart.setOption({
+      tooltip: { trigger: 'item', formatter: '{a} <br/>{b}: {c} ({d}%)' },
+      legend: { orient: 'vertical', right: 10, top: 'center', data: chartData.ageDistribution.map(item => item.name) },
+      series: [{
+        name: '年龄分布',
+        type: 'pie',
+        radius: ['50%', '70%'],
+        data: chartData.ageDistribution,
+      }]
+    });
+    // 2. 地区分布图表
+    const areaChart = echarts.init(document.getElementById('area-chart'));
+    areaChart.setOption({
+      tooltip: { trigger: 'item', formatter: '{a} <br/>{b}: {c} ({d}%)' },
+      legend: { orient: 'vertical', right: 10, top: 'center', data: chartData.areaDistribution.map(item => item.name) },
+      series: [{
+        name: '地区分布',
+        type: 'pie',
+        radius: '55%',
+        data: chartData.areaDistribution
+      }]
+    });
+    // 3. 服务类型分布图表
+    const serviceChart = echarts.init(document.getElementById('service-chart'));
+    serviceChart.setOption({
+      tooltip: { trigger: 'item', formatter: '{a} <br/>{b}: {c} ({d}%)' },
+      legend: { orient: 'vertical', right: 10, top: 'center', data: chartData.serviceDistribution.map(item => item.name) },
+      series: [{
+        name: '服务类型',
+        type: 'pie',
+        radius: ['30%', '55%'],
+        roseType: 'radius',
+        data: chartData.serviceDistribution,
+      }]
+    });
+    // 4. 客户状态分布图表
+    const statusChart = echarts.init(document.getElementById('status-chart'));
+    statusChart.setOption({
+      tooltip: { trigger: 'item', formatter: '{a} <br/>{b}: {c} ({d}%)' },
+      legend: { orient: 'vertical', right: 10, top: 'center', data: chartData.statusDistribution.map(item => item.name) },
+      series: [{
+        name: '客户状态',
+        type: 'pie',
+        radius: '55%',
+        data: chartData.statusDistribution
+      }]
+    });
+    // 窗口大小变化时重绘图表
+    window.addEventListener('resize', () => {
+      ageChart.resize();
+      areaChart.resize();
+      serviceChart.resize();
+      statusChart.resize();
+    });
+  }
+  // 初始化页面
+  fillStatsCards(statsData.statsCards);
+  renderAllCharts(statsData.charts);
+});
+</script>
+	</body>
+</html>

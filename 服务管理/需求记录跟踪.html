@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>需求记录跟踪</title>
+		<link rel="stylesheet" href="https://cdn.staticfile.net/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
+		<script src="https://cdn.staticfile.net/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+		<script src="https://cdn.tailwindcss.com"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="../lib/layui-v2.6.3/css/layui.css" media="all">
+		<link rel="stylesheet" href="../css/public.css" media="all">
+		<script src="https://cdn.jsdelivr.net/npm/echarts@4.3.0/dist/echarts.min.js"></script>
+		<style>
+			#firstdiv{
+				background-image: url("../img/bg.jpg");
+				height: 150px;
+				text-align: center;
+				color: white;
+				padding-top: 50px;
+				font-size: 50px;
+				font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+			}
+			#seconddiv{
+				background-color:white;
+				height: 90px;
+				padding-top: 15px;
+			}
+			#b{
+				padding-left: 35px;
+				font-size: 35px;
+			}
+			#q{
+				width: 85%;
+			}
+			.layui-side {
+				position: fixed;
+				left: 0;
+				bottom: 0;
+				z-index: 999;
+				width: 200px;
+				overflow-x: hidden;
+			}
+			.layui-nav-tree {
+				width: 200px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="firstdiv">
+			<b>欢 &nbsp&nbsp;迎&nbsp;&nbsp 进&nbsp;&nbsp 入&nbsp;&nbsp 敬&nbsp;&nbsp 老&nbsp;&nbsp 院&nbsp;&nbsp 运&nbsp;&nbsp 营&nbsp;&nbsp 系&nbsp;&nbsp 统</b>
+		</div>
+		<div class="layui-side layui-bg-black">
+		<ul class="layui-nav layui-nav-tree" lay-filter="test">
+			
+		  <li class="layui-nav-item">
+		    <a href="../首页.html"><i class="fa fa-home mr-2"></i>首页</a>
+		  </li>
+		  <li class="layui-nav-item layui-nav-itemed">
+		    <a href="javascript:;"><i class="fa fa-hand-paper-o mr-2"></i>服务管理</a>
+		    <dl class="layui-nav-child">
+		      <dd><a href="../服务管理/生活需求管理.html">生活需求管理</a></dd>
+		      <dd><a href="../服务管理/需求记录跟踪.html">需求记录跟踪</a></dd>
+		    </dl>
+		  </li>
+		  <li class="layui-nav-item">
+		    <a href="javascript:;"><i class="fa fa-heartbeat mr-2"></i>健康管理</a>
+		    <dl class="layui-nav-child">
+		      <dd><a href="../健康管理/实时健康指标查看.html">实时健康指标查看</a></dd>
+		      <dd><a href="../健康管理/健康数据历史查询.html">健康数据历史查询</a></dd>
+		    </dl>
+		  </li>
+		  <li class="layui-nav-item">
+		    <a href="javascript:;"><i class="fa fa-cutlery mr-2"></i>餐饮管理</a>
+		    <dl class="layui-nav-child">
+		      <dd><a href="../餐饮管理/健康饮食方案制定.html">健康饮食方案制定</a></dd>
+		      <dd><a href="../餐饮管理/每日餐食记录.html">每日餐食记录</a></dd>
+		    </dl>
+		  </li>
+		  <li class="layui-nav-item">
+		    <a href="javascript:;"><i class="fa fa-futbol-o mr-2"></i>活动管理</a>
+		    <dl class="layui-nav-child">
+		      <dd><a href="../活动管理/日常娱乐活动管理.html">日常娱乐活动管理</a></dd>
+		      <dd><a href="../活动管理/大型娱乐活动统筹.html">大型娱乐活动统筹</a></dd>
+		    </dl>
+		  </li>
+		  <li class="layui-nav-item">
+		    <a href="javascript:;"><i class="fa fa-users mr-2"></i>客户管理</a>
+		    <dl class="layui-nav-child">
+		      <dd><a href="../客户管理/客户信息录入.html">客户信息录入</a></dd>
+		      <dd><a href="../客户管理/客户信息查询管理.html">客户信息查询管理</a></dd>
+			  <dd><a href="../客户管理/客户统计.html">客户统计</a></dd>
+		    </dl>
+		  </li>
+		  <li class="layui-nav-item">
+		    <a href="javascript:;"><i class="fa fa-list-alt mr-2"></i>订单管理</a>
+		    <dl class="layui-nav-child">
+		      <dd><a href="../订单管理/订单接受与记录.html">订单接收与记录</a></dd>
+		      <dd><a href="../订单管理/订单处理与跟踪.html">订单处理与跟踪</a></dd>
+			</dl>
+		  </li>
+		</ul>
+		</div>
+		<div class="layui-body" id="q">
+		<div id="b">
+			<b>需求记录跟踪</b>
+		</div>
+		
+		
+		<div class="layuimini-container">
+		    <div class="layuimini-main">
+		
+		        <fieldset class="table-search-fieldset">
+		            <legend>搜索信息</legend>
+		            <div style="margin: 10px 10px 10px 10px">
+		                <form class="layui-form layui-form-pane" action="">
+		                    <div class="layui-form-item">
+		                        <div class="layui-inline">
+		                            <label class="layui-form-label">用户ID</label>
+		                            <div class="layui-input-inline">
+		                                <input type="text" name="username" autocomplete="off" class="layui-input">
+		                            </div>
+		                        </div>
+		                        <div class="layui-inline">
+		                            <label class="layui-form-label">用户姓名</label>
+		                            <div class="layui-input-inline">
+		                                <input type="text" name="sex" autocomplete="off" class="layui-input">
+		                            </div>
+		                        </div>
+		                        <div class="layui-inline">
+		                            <label class="layui-form-label">用户性别</label>
+		                            <div class="layui-input-inline">
+		                                <input type="text" name="city" autocomplete="off" class="layui-input">
+		                            </div>
+		                        </div>
+		                        <div class="layui-inline">
+		                            <label class="layui-form-label">完成情况</label>
+		                            <div class="layui-input-inline">
+		                                <input type="text" name="classify" autocomplete="off" class="layui-input">
+		                            </div>
+		                        </div>
+		                        <div class="layui-inline">
+		                            <button type="submit" class="layui-btn layui-bg-blue"  lay-submit lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
+		                        </div>
+		                    </div>
+		                </form>
+		            </div>
+		        </fieldset>
+		
+		        <script type="text/html" id="toolbarDemo">
+		            <div class="layui-btn-container">
+		                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加 </button>
+		                <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除 </button>
+		            </div>
+		        </script>
+		
+		        <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+		
+		        <script type="text/html" id="currentTableBar">
+		            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
+		            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+					<a class="layui-btn layui-btn-xs layui-btn data-count-detail" lay-event="detail">查看详情</a>
+		        </script>
+		
+		    </div>
+		</div>
+		</div>
+		<script src="../lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
+		<script>
+		    layui.use(['form', 'table', 'element'], function () {
+		        var $ = layui.jquery,
+		            form = layui.form,
+		            table = layui.table,
+		            element = layui.element;
+				
+				// 初始化导航菜单
+				element.init();
+		
+		        table.render({
+		            elem: '#currentTableId',
+		            url: '../JSON/需求健康.json',
+		            toolbar: '#toolbarDemo',
+		            defaultToolbar: ['filter', 'exports', 'print', {
+		                title: '提示',
+		                layEvent: 'LAYTABLE_TIPS',
+		                icon: 'layui-icon-tips'
+		            }],
+		            cols: [[
+		                {type: "checkbox", width: 50},
+		                {field: 'id', width: 80, title: 'ID', sort: true},
+		                {field: 'username', width: 80, title: '用户名'},
+		                {field: 'sex', width: 80, title: '性别', sort: true},
+		                {field: 'foodhistory', width: 400, title: '饮食历史需求'},
+		                {field: 'foodschedule', width: 120, title: '完成情况', sort: true},
+		                {field: 'actionhistory', title: '活动历史需求', minWidth: 150},
+		                {field: 'actionschedule', width: 120, title: '完成情况', sort: true},
+		                {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
+		            ]],
+		            limits: [10, 15, 20, 25, 50, 100],
+		            limit: 15,
+		            page: true,
+		            skin: 'line'
+		        });
+		
+		        // 监听搜索操作
+		        form.on('submit(data-search-btn)', function (data) {
+		            var result = JSON.stringify(data.field);
+		            layer.alert(result, {
+		                title: '最终的搜索信息'
+		            });
+		
+		            //执行搜索重载
+		            table.reload('currentTableId', {
+		                page: {
+		                    curr: 1
+		                }
+		                , where: {
+		                    searchParams: result
+		                }
+		            }, 'data');
+		
+		            return false;
+		        });
+		
+		        /**
+		         * toolbar监听事件
+		         */
+		        table.on('toolbar(currentTableFilter)', function (obj) {
+		            if (obj.event === 'add') {  // 监听添加操作
+		                var index = layer.open({
+		                    title: '添加用户',
+		                    type: 2,
+		                    shade: 0.2,
+		                    maxmin:true,
+		                    shadeClose: true,
+		                    area: ['100%', '100%'],
+		                    content: '../page/table/add.html',
+		                });
+		                $(window).on("resize", function () {
+		                    layer.full(index);
+		                });
+		            } else if (obj.event === 'delete') {  // 监听删除操作
+		                var checkStatus = table.checkStatus('currentTableId')
+		                    , data = checkStatus.data;
+		                layer.alert(JSON.stringify(data));
+		            }
+		        });
+		
+		        //监听表格复选框选择
+		        table.on('checkbox(currentTableFilter)', function (obj) {
+		            console.log(obj)
+		        });
+		
+		        table.on('tool(currentTableFilter)', function (obj) {
+		            var data = obj.data;
+		            if (obj.event === 'edit') {
+		
+		                var index = layer.open({
+		                    title: '编辑用户',
+		                    type: 2,
+		                    shade: 0.2,
+		                    maxmin:true,
+		                    shadeClose: true,
+		                    area: ['100%', '100%'],
+		                    content: '../page/table/edit.html',
+		                });
+		                $(window).on("resize", function () {
+		                    layer.full(index);
+		                });
+		                return false;
+		            } else if (obj.event === 'delete') {
+		                layer.confirm('真的删除行么', function (index) {
+		                    obj.del();
+		                    layer.close(index);
+		                });
+		            } else if (obj.event === 'detail') {
+		                layer.alert('查看详情: ' + JSON.stringify(data), {
+		                    title: '需求详情',
+		                    area: ['600px', '400px']
+		                });
+		            }
+		        });
+		
+		    });
+		</script>
+	</body>
+</html>

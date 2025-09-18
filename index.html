@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>敬老院-登录</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../css/unified-style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+        
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: linear-gradient(120deg, #f5deb3, #d2b48c, #a9a9a9);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        /* 粒子背景画布 */
+        #particle-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        #logdiv {
+            width: 390px;
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            text-align: center;
+            z-index: 2;
+            position: relative;
+        }
+        
+        #biaoti {
+            color: #8B4513;
+            font-size: 28px;
+            margin-bottom: 25px;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .biankuang {
+            width: 100%;
+            height: 42px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 5px;
+            padding: 0 15px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .biankuang:focus {
+            border-color: #A7836A;
+            box-shadow: 0 0 5px rgba(167, 131, 106, 0.5);
+            outline: none;
+        }
+        
+        .biankuang1 {
+            width: 245px;
+            height: 42px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            padding: 0 15px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .biankuang1:focus {
+            border-color: #A7836A;
+            box-shadow: 0 0 5px rgba(167, 131, 106, 0.5);
+            outline: none;
+        }
+        
+        #loginbtn1 {
+            width: 100%;
+            height: 50px;
+            border: none;
+            background: linear-gradient(to right, #A7836A, #8B4513);
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        #loginbtn1:hover {
+            background: linear-gradient(to right, #8B4513, #A7836A);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        #loginbtn1:active {
+            transform: translateY(0);
+        }
+        
+        #capdiv {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        
+        form {
+            padding: 0;
+        }
+        
+        .error-tip {
+            color: red;
+            font-size: 12px;
+            text-align: left;
+            display: block;
+            margin-bottom: 10px;
+            min-height: 18px;
+        }
+        
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .remember-forgot a {
+            color: #8B4513;
+            text-decoration: none;
+        }
+        
+        .remember-forgot a:hover {
+            text-decoration: underline;
+        }
+        
+        input[type="checkbox"] {
+            margin-right: 5px;
+            accent-color: #A7836A;
+        }
+        
+        .captcha-img {
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .captcha-img:hover {
+            opacity: 0.8;
+        }
+        
+        /* 加载动画 */
+        .loader {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 480px) {
+            #logdiv {
+                width: 90%;
+                padding: 20px 15px;
+            }
+            
+            #capdiv {
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .biankuang1 {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particle-canvas"></canvas>
+    
+    <div id="logdiv">
+        <h1 id="biaoti">敬老院运营系统</h1>
+        <form onsubmit="return checkform()" action="首页.html" method="get">
+            <input id="username" class="biankuang" type="text" placeholder="用户名或者邮箱(输入一一一)"/>
+            <span id="unametip" class="error-tip"></span>
+            
+            <input id="password" class="biankuang" type="password" placeholder="密码(输入111111)"/>
+            <span id="passwordtip" class="error-tip"></span>
+            
+            <div id="capdiv">
+                <input id="yz" class="biankuang1" type="text" placeholder="图形验证码(输入XSZG)"/>
+                <img id="captcha-img" class="captcha-img" src="../images/captcha.jpg" width="83" height="33" alt="验证码"/>
+            </div>
+            <span id="yztip" class="error-tip"></span>
+            
+            <div class="remember-forgot">
+                <label>
+                    <input type="checkbox">记住密码
+                </label>
+                <a href="#">忘记密码?</a>
+            </div>
+            
+            <button id="loginbtn1" type="submit">
+                <span id="btn-text">登 录</span>
+                <div class="loader"></div>
+            </button>
+        </form>
+    </div>
+
+    <script>
+        // 粒子背景实现
+        document.addEventListener('DOMContentLoaded', function() {
+            const canvas = document.getElementById('particle-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            // 粒子数组
+            let particles = [];
+            const particleCount = 100;
+            
+            // 粒子类
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 3 + 1;
+                    this.speedX = Math.random() * 1 - 0.5;
+                    this.speedY = Math.random() * 1 - 0.5;
+                    this.color = `rgba(${Math.random() * 70 + 150}, ${Math.random() * 50 + 130}, ${Math.random() * 50 + 100}, ${Math.random() * 0.5 + 0.3})`;
+                }
+                
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    
+                    if (this.x > canvas.width || this.x < 0) {
+                        this.speedX = -this.speedX;
+                    }
+                    if (this.y > canvas.height || this.y < 0) {
+                        this.speedY = -this.speedY;
+                    }
+                }
+                
+                draw() {
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+            
+            // 初始化粒子
+            function init() {
+                particles = [];
+                for (let i = 0; i < particleCount; i++) {
+                    particles.push(new Particle());
+                }
+            }
+            
+            // 连接相近的粒子
+            function connectParticles() {
+                const maxDistance = 100;
+                for (let a = 0; a < particles.length; a++) {
+                    for (let b = a; b < particles.length; b++) {
+                        const dx = particles[a].x - particles[b].x;
+                        const dy = particles[a].y - particles[b].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance < maxDistance) {
+                            ctx.beginPath();
+                            ctx.strokeStyle = `rgba(167, 131, 106, ${1 - distance/maxDistance})`;
+                            ctx.lineWidth = 1;
+                            ctx.moveTo(particles[a].x, particles[a].y);
+                            ctx.lineTo(particles[b].x, particles[b].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+            
+            // 动画循环
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+                }
+                
+                connectParticles();
+                requestAnimationFrame(animate);
+            }
+            
+            // 窗口调整大小时重置画布
+            window.addEventListener('resize', function() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                init();
+            });
+            
+            // 初始化并开始动画
+            init();
+            animate();
+            
+            // 验证码点击刷新
+            document.getElementById('captcha-img').addEventListener('click', function() {
+                this.src = this.src + '?' + new Date().getTime(); // 模拟刷新验证码
+            });
+        });
+        
+        // 表单验证函数
+        function checkform(){
+            document.getElementById("unametip").innerText = "";
+            document.getElementById("passwordtip").innerText = "";
+            document.getElementById("yztip").innerText = "";
+            document.getElementById("username").style.border = "1px solid #ccc";
+            document.getElementById("password").style.border = "1px solid #ccc";
+            document.getElementById("yz").style.border = "1px solid #ccc";
+            
+            let flag = true;
+            const uname = document.getElementById("username").value;
+            const unameregexp = /^[\u4e00-\u9fa5]{2,6}$/;
+            
+            if(!unameregexp.test(uname)){
+                document.getElementById("username").style.border = "1px solid red";
+                document.getElementById("unametip").innerText = "请重新输入,2-6位汉字";
+                flag = false;
+            }
+            
+            const upsw = document.getElementById("password").value;
+            const upswreg = /^[0-9]{6}$/;
+            
+            if(!upswreg.test(upsw)){
+                document.getElementById("password").style.border = "1px solid red";
+                document.getElementById("passwordtip").innerText = "密码必须是6位数字";
+                flag = false;
+            }
+            
+            const uyz = document.getElementById("yz").value;
+            const uyzreg = /^[A-Z]{4}$/;
+            
+            if(!uyzreg.test(uyz)){
+                document.getElementById("yz").style.border = "1px solid red";
+                document.getElementById("yztip").innerText = "请重新输入验证码";
+                flag = false;
+            }
+            
+            // 如果验证通过，显示加载动画并允许表单提交
+            if (flag) {
+                const btnText = document.getElementById("btn-text");
+                const loader = document.querySelector(".loader");
+                
+                btnText.style.display = "none";
+                loader.style.display = "block";
+                
+                // 模拟登录过程，然后允许表单提交
+                setTimeout(function() {
+                    // 这里不需要再处理，表单会自动提交到action指定的页面
+                }, 1500);
+                
+                return true; // 允许表单提交
+            }
+            
+            return false; // 阻止表单提交
+        }
+    </script>
+</body>
+</html>

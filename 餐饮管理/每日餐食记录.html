@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>餐饮记录历史查询</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.net/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.net/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../lib/layui-v2.6.3/css/layui.css" media="all">
+    <link rel="stylesheet" href="../css/public.css" media="all">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@4.3.0/dist/echarts.min.js"></script>
+    <style>
+		#firstdiv{
+			background-image: url("../img/bg.jpg");
+			height: 150px;
+			text-align: center;
+			color: white;
+			padding-top: 50px;
+			font-size: 50px;
+			font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+		}
+        #b {
+            
+            padding-left: 35px;
+            font-size: 35px;
+        }
+        #main {
+            margin-left: 35px;
+            margin-right: 35px;
+        }
+		a{
+			padding-left: 35px;
+			font-size: 30px;
+		}
+		#big{
+			background-color:white;
+			
+		}
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            text-align: center;
+        }
+        .calendar-day {
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .calendar-day:hover {
+            background-color: #f3f4f6;
+        }
+        .calendar-day.current-month {
+            color: #1f2937;
+        }
+        .calendar-day.other-month {
+            color: #d1d5db;
+        }
+        .calendar-day.selected {
+            background-color: #3b82f6;
+            color: white;
+        }
+        .calendar-day.today {
+            border: 2px solid #3b82f6;
+        }
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+        .text-primary {
+            color: #3b82f6;
+        }
+		#q{
+			width: 85%;
+		}
+    </style>
+</head>
+<body class="bg-gray-100">
+    
+    <div id="firstdiv">
+    	<b>欢 &nbsp&nbsp;迎&nbsp;&nbsp 进&nbsp;&nbsp 入&nbsp;&nbsp 敬&nbsp;&nbsp 老&nbsp;&nbsp 院&nbsp;&nbsp 运&nbsp;&nbsp 营&nbsp;&nbsp 系&nbsp;&nbsp 统</b>
+    </div>
+	<div class="layui-side layui-bg-black layuimini-left" layuimini-tab-tag="no">
+	<ul class="layui-nav layui-nav-tree">
+		
+	  <li class="layui-nav-item">
+	    <a href="../首页.html"><i class="fa fa-home mr-2"></i>首页</a>
+	  </li>
+	  <li class="layui-nav-item">
+	    <a><i class="fa fa-hand-paper-o mr-2"></i>服务管理</a>
+	    <dl class="layui-nav-child">
+	      <dd><a href="../服务管理/生活需求管理.html">生活需求管理</a></dd>
+	      <dd><a href="../服务管理/需求记录跟踪.html">需求记录跟踪</a></dd>
+	    </dl>
+	  </li>
+	  <li class="layui-nav-item">
+	    <a><i class="fa fa-heartbeat mr-2"></i>健康管理</a>
+	    <dl class="layui-nav-child">
+	      <dd><a href="../健康管理/实时健康指标查看.html">实时健康指标查看</a></dd>
+	      <dd><a href="../健康管理/健康数据历史查询.html">健康数据历史查询</a></dd>
+	    </dl>
+	  </li>
+	  <li class="layui-nav-item">
+	    <a><i class="fa fa-cutlery mr-2"></i>餐饮管理</a>
+	    <dl class="layui-nav-child">
+	      <dd><a href="../餐饮管理/健康饮食方案制定.html">健康饮食方案制定</a></dd>
+	      <dd><a href="../餐饮管理/每日餐食记录.html">每日餐食记录</a></dd>
+	    </dl>
+	  </li>
+	  <li class="layui-nav-item">
+	    <a><i class="fa fa-futbol-o mr-2"></i>活动管理</a>
+	    <dl class="layui-nav-child">
+	      <dd><a href="../活动管理/日常娱乐活动管理.html">日常娱乐活动管理</a></dd>
+	      <dd><a href="../活动管理/大型娱乐活动统筹.html">大型娱乐活动统筹</a></dd>
+	    </dl>
+	  </li>
+	  <li class="layui-nav-item">
+	    <a><i class="fa fa-users mr-2"></i>客户管理</a>
+	    <dl class="layui-nav-child">
+	      <dd><a href="../客户管理/客户信息录入.html">客户信息录入</a></dd>
+	      <dd><a href="../客户管理/客户信息查询管理.html">客户信息查询管理</a></dd>
+		  <dd><a href="../客户管理/客户统计.html">客户统计</a></dd>
+	    </dl>
+	  </li>
+	  <li class="layui-nav-item">
+	    <a><i class="fa fa-list-alt mr-2"></i>订单管理</a>
+	    <dl class="layui-nav-child">
+	      <dd><a href="../订单管理/订单接受与记录.html">订单接收与记录</a></dd>
+	      <dd><a href="../订单管理/订单处理与跟踪.html">订单处理与跟踪</a></dd>
+		</dl>
+	  </li>
+	</ul>
+	<script src="//unpkg.com/layui@2.11.6/dist/layui.js"></script>
+	</div>
+	<div class="layui-body" id="q">
+		<div id="b">
+			<b>每日餐食记录</b>
+		</div>
+		<div id="big">
+		
+	
+		<a>user-X餐饮数据查询</a>
+		<a href="餐饮历史数据/切换用户.html">
+			<button type="button" class="layui-btn layui-btn-warm layui-btn-radius">切换用户</button>
+		</a>
+    <div class="container mx-auto px-4">
+        <section class="mb-8 bg-white rounded-xl shadow-md p-6">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                <h3 class="text-xl font-semibold mb-4 md:mb-0">选择查看日期</h3>
+                
+                <div class="flex items-center space-x-4">
+                    <button id="prevDay" class="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors">
+                        <i class="fa fa-chevron-left text-gray-600"></i>
+                    </button>
+                    
+                    <div id="currentDateText" class="text-xl font-medium">2025年09月11日 星期四</div>
+                    
+                    <button id="nextDay" class="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors">
+                        <i class="fa fa-chevron-right text-gray-600"></i>
+                    </button>
+                    
+                    <button id="todayBtn" class="bg-blue-100 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-200 transition-colors">
+                        今天
+                    </button>
+                </div>
+            </div>
+            <!-- 日历网格 -->
+            <div class="calendar-grid">
+                <div class="text-sm font-medium text-gray-500 py-2">日</div>
+                <div class="text-sm font-medium text-gray-500 py-2">一</div>
+                <div class="text-sm font-medium text-gray-500 py-2">二</div>
+                <div class="text-sm font-medium text-gray-500 py-2">三</div>
+                <div class="text-sm font-medium text-gray-500 py-2">四</div>
+                <div class="text-sm font-medium text-gray-500 py-2">五</div>
+                <div class="text-sm font-medium text-gray-500 py-2">六</div>
+                
+                <!-- 日期单元格将通过JavaScript动态生成 -->
+                <div id="calendarDays" class="contents"></div>
+            </div>
+        </section>
+        <!-- 每日三餐记录 -->
+        <section class="mb-10" id="mealsSection">
+            <h3 class="text-2xl font-bold mb-6 flex items-center">
+                <i class="fa fa-list-alt text-blue-500 mr-2"></i> 每日三餐记录
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- 早餐 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="bg-orange-500 text-white p-4">
+                        <div class="flex justify-between items-center">
+                            <h4 class="text-xl font-bold flex items-center">
+                                <i class="fa fa-sun-o mr-2"></i> 早餐
+                            </h4>
+                            <span class="text-sm bg-white/20 px-2 py-1 rounded" id="breakfastTime">--:--</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="mb-4">
+                            <h5 class="text-gray-600 font-medium mb-2">食物清单</h5>
+                            <ul class="space-y-2" id="breakfastFoods">
+                                <li class="flex justify-between items-center text-gray-600">
+                                    <span>加载中...</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <h5 class="text-gray-600 font-medium mb-2">进食情况</h5>
+                            <div class="flex items-center">
+                                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                    <div class="bg-orange-500 h-2.5 rounded-full" id="breakfastIntakeBar" style="width: 0%"></div>
+                                </div>
+                                <span class="ml-2 text-sm font-medium" id="breakfastIntakeText">0%</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h5 class="text-gray-600 font-medium mb-2">备注</h5>
+                            <p class="text-sm bg-gray-50 p-3 rounded-lg border border-gray-100" id="breakfastNotes">
+                                暂无数据
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 午餐 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="bg-green-500 text-white p-4">
+                        <div class="flex justify-between items-center">
+                            <h4 class="text-xl font-bold flex items-center">
+                                <i class="fa fa-cutlery mr-2"></i> 午餐
+                            </h4>
+                            <span class="text-sm bg-white/20 px-2 py-1 rounded" id="lunchTime">--:--</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="mb-4">
+                            <h5 class="text-gray-600 font-medium mb-2">食物清单</h5>
+                            <ul class="space-y-2" id="lunchFoods">
+                                <li class="flex justify-between items-center text-gray-600">
+                                    <span>加载中...</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <h5 class="text-gray-600 font-medium mb-2">进食情况</h5>
+                            <div class="flex items-center">
+                                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                    <div class="bg-green-500 h-2.5 rounded-full" id="lunchIntakeBar" style="width: 0%"></div>
+                                </div>
+                                <span class="ml-2 text-sm font-medium" id="lunchIntakeText">0%</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h5 class="text-gray-600 font-medium mb-2">备注</h5>
+                            <p class="text-sm bg-gray-50 p-3 rounded-lg border border-gray-100" id="lunchNotes">
+                                暂无数据
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 晚餐 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="bg-blue-500 text-white p-4">
+                        <div class="flex justify-between items-center">
+                            <h4 class="text-xl font-bold flex items-center">
+                                <i class="fa fa-moon-o mr-2"></i> 晚餐
+                            </h4>
+                            <span class="text-sm bg-white/20 px-2 py-1 rounded" id="dinnerTime">--:--</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="mb-4">
+                            <h5 class="text-gray-600 font-medium mb-2">食物清单</h5>
+                            <ul class="space-y-2" id="dinnerFoods">
+                                <li class="flex justify-between items-center text-gray-600">
+                                    <span>加载中...</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <h5 class="text-gray-600 font-medium mb-2">进食情况</h5>
+                            <div class="flex items-center">
+                                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                    <div class="bg-blue-500 h-2.5 rounded-full" id="dinnerIntakeBar" style="width: 0%"></div>
+                                </div>
+                                <span class="ml-2 text-sm font-medium" id="dinnerIntakeText">0%</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h5 class="text-gray-600 font-medium mb-2">备注</h5>
+                            <p class="text-sm bg-gray-50 p-3 rounded-lg border border-gray-100" id="dinnerNotes">
+                                暂无数据
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+		<section class="mb-10" id="nutritionSection">
+		    <h3 class="text-2xl font-bold mb-6 flex items-center">
+		        <i class="fa fa-pie-chart text-primary mr-2"></i> 营养摄入统计
+		    </h3>
+		    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+		        <!-- 营养成分图表 -->
+		        <div class="bg-white rounded-xl shadow-md p-6">
+		            <h4 class="text-lg font-semibold mb-4">主要营养成分摄入</h4>
+		            <div class="h-80">
+		                <canvas id="nutritionChart"></canvas>
+		            </div>
+		        </div>
+		        <!-- 三餐热量分布 -->
+		        <div class="bg-white rounded-xl shadow-md p-6">
+		            <h4 class="text-lg font-semibold mb-4">三餐热量分布</h4>
+		            <div class="h-80">
+		                <canvas id="caloriesChart"></canvas>
+		            </div>
+		        </div>
+		    </div>
+		</section>
+    </div>
+	</div>
+	</div>
+    <script>
+		let nutritionChart, caloriesChart;
+		let mealNutritionData = {
+		    protein: 0,
+		    carbs: 0,
+		    fat: 0,
+		    fiber: 0,
+		    vitamins: 0,
+		    calories: {
+		        breakfast: 0,
+		        lunch: 0,
+		        dinner: 0
+		    }
+		};
+		// 初始化图表
+		function initCharts() {
+		    // 营养成分图表
+		    const nutritionCtx = document.getElementById('nutritionChart');
+		    if (nutritionCtx) {
+		        nutritionChart = new Chart(nutritionCtx.getContext('2d'), {
+		            type: 'bar',
+		            data: {
+		                labels: ['蛋白质(g)', '碳水化合物(g)', '脂肪(g)', '纤维素(g)', '维生素(单位)'],
+		                datasets: [{
+		                    label: '今日摄入量',
+		                    data: [0, 0, 0, 0, 0],
+		                    backgroundColor: [
+		                        'rgba(79, 70, 229, 0.7)',
+		                        'rgba(236, 72, 153, 0.7)',
+		                        'rgba(34, 211, 238, 0.7)',
+		                        'rgba(16, 185, 129, 0.7)',
+		                        'rgba(245, 158, 11, 0.7)'
+		                    ],
+		                    borderWidth: 1
+		                }, {
+		                    label: '建议摄入量',
+		                    data: [70, 200, 50, 25, 30],
+		                    type: 'line',
+		                    fill: false,
+		                    borderColor: 'rgba(100, 116, 139, 1)',
+		                    borderDash: [5, 5]
+		                }]
+		            },
+		            options: {
+		                responsive: true,
+		                maintainAspectRatio: false,
+		                scales: { y: { beginAtZero: true } }
+		            }
+		        });
+		    }
+		    // 热量分布图表
+		    const caloriesCtx = document.getElementById('caloriesChart');
+		    if (caloriesCtx) {
+		        caloriesChart = new Chart(caloriesCtx.getContext('2d'), {
+		            type: 'doughnut',
+		            data: {
+		                labels: ['早餐', '午餐', '晚餐'],
+		                datasets: [{
+		                    data: [0, 0, 0],
+		                    backgroundColor: [
+		                        'rgba(249, 115, 22, 0.7)',
+		                        'rgba(16, 185, 129, 0.7)',
+		                        'rgba(59, 130, 246, 0.7)'
+		                    ],
+		                    borderWidth: 1
+		                }]
+		            },
+		            options: {
+		                responsive: true,
+		                maintainAspectRatio: false,
+		                plugins: { legend: { position: 'bottom' } }
+		            }
+		        });
+		    }
+		}
+		// 更新营养图表数据
+		function updateNutritionCharts() {
+		    if (nutritionChart) {
+		        nutritionChart.data.datasets[0].data = [
+		            mealNutritionData.protein,
+		            mealNutritionData.carbs,
+		            mealNutritionData.fat,
+		            mealNutritionData.fiber,
+		            mealNutritionData.vitamins
+		        ];
+		        nutritionChart.update();
+		    }
+		    if (caloriesChart) {
+		        caloriesChart.data.datasets[0].data = [
+		            mealNutritionData.calories.breakfast,
+		            mealNutritionData.calories.lunch,
+		            mealNutritionData.calories.dinner
+		        ];
+		        caloriesChart.update();
+		    }
+		}
+		// 日期格式化工具函数
+		function formatDate(date) {
+		    const year = date.getFullYear();
+		    const month = String(date.getMonth() + 1).padStart(2, '0');
+		    const day = String(date.getDate()).padStart(2, '0');
+		    return `${year}-${month}-${day}`;
+		}
+		// 从外部JSON加载指定日期的餐食数据
+		function loadMealDataByDate(targetDate) {setLoadingState(true);
+            resetNutritionData();
+            // 1. 用fetch请求外部JSON文件（路径：../../JSON/每日餐饮.json）
+            fetch('../JSON/每日餐饮.json')
+                .then(response => {
+                    // 检查请求是否成功（如404表示文件路径错误）
+                    if (!response.ok) {
+                        throw new Error(`JSON文件请求失败：${response.status}（可能路径错误）`);
+                    }
+                    // 2. 解析JSON数据（自动转换为JS对象）
+                    return response.json();
+                })
+                .then(allDiningData => {
+                    // 3. 根据选中日期，从JSON数据中匹配对应数据（如targetDate为"2025-09-11"）
+                    const dailyData = allDiningData[targetDate] || null;
+                    if (dailyData) {
+                        // 加载早餐数据（JSON中键为"breakf"）
+                        if (dailyData.breakf) {
+                            updateMealCard('breakfast', dailyData.breakf);
+                            calculateNutrition('breakfast', dailyData.breakf);
+                        }
+                        // 加载午餐数据（JSON中键为"lunch"）
+                        if (dailyData.lunch) {
+                            updateMealCard('lunch', dailyData.lunch);
+                            calculateNutrition('lunch', dailyData.lunch);
+                        }
+                        // 加载晚餐数据（JSON中键为"dinner"）
+                        if (dailyData.dinner) {
+                            updateMealCard('dinner', dailyData.dinner);
+                            calculateNutrition('dinner', dailyData.dinner);
+                        }
+                        // 更新营养图表
+                        updateNutritionCharts();
+                    } else {
+                        // 无该日期数据（如选择2025-09-14，JSON中无此日期）
+                        showNoDataMessage();
+                    }
+                })
+                .catch(error => {
+                    // 捕获错误（如路径错误、JSON格式错误）
+                    console.error('读取JSON数据失败：', error);
+                    showErrorMessage();
+                })
+                .finally(() => {
+                    // 无论成功/失败，都结束加载状态
+                    setLoadingState(false);
+                });}
+		// 重置营养数据
+		function resetNutritionData() {
+		    mealNutritionData = {
+		        protein: 0,
+		        carbs: 0,
+		        fat: 0,
+		        fiber: 0,
+		        vitamins: 0,
+		        calories: {
+		            breakfast: 0,
+		            lunch: 0,
+		            dinner: 0
+		        }
+		    };
+		}
+		// 计算营养数据（基于食物成分估算）
+		function calculateNutrition(mealType, mealData) {
+		    // 简单的食物营养成分数据库（实际应用中可扩展）
+		    const foodNutrition = {
+		        "小米粥": { protein: 4, carbs: 20, fat: 1, fiber: 1, vitamins: 2, calories: 100 },
+		        "蒸蛋羹": { protein: 7, carbs: 1, fat: 5, fiber: 0, vitamins: 3, calories: 80 },
+		        "全麦面包": { protein: 4, carbs: 15, fat: 2, fiber: 3, vitamins: 1, calories: 90 },
+		        "软米饭": { protein: 2, carbs: 28, fat: 0, fiber: 0, vitamins: 0, calories: 120 },
+		        "清蒸鱼": { protein: 18, carbs: 0, fat: 5, fiber: 0, vitamins: 2, calories: 130 },
+		        "炒青菜": { protein: 2, carbs: 5, fat: 0, fiber: 3, vitamins: 10, calories: 30 },
+		        "蔬菜粥": { protein: 3, carbs: 18, fat: 1, fiber: 2, vitamins: 5, calories: 90 },
+		        "豆腐羹": { protein: 6, carbs: 3, fat: 2, fiber: 1, vitamins: 2, calories: 60 },
+		        "小馒头": { protein: 3, carbs: 20, fat: 1, fiber: 1, vitamins: 0, calories: 100 }
+		    };
+		    // 计算该餐的营养总和
+		    let mealCalories = 0;
+		    mealData.foods.forEach(food => {
+		        const nutrition = foodNutrition[food.name] || { protein: 0, carbs: 0, fat: 0, fiber: 0, vitamins: 0, calories: 0 };
+		        const amountFactor = getAmountFactor(food.amount);
+		        mealNutritionData.protein += nutrition.protein * amountFactor;
+		        mealNutritionData.carbs += nutrition.carbs * amountFactor;
+		        mealNutritionData.fat += nutrition.fat * amountFactor;
+		        mealNutritionData.fiber += nutrition.fiber * amountFactor;
+		        mealNutritionData.vitamins += nutrition.vitamins * amountFactor;
+		        mealCalories += nutrition.calories * amountFactor;
+		    });
+		    // 记录该餐的热量
+		    mealNutritionData.calories[mealType] = Math.round(mealCalories);
+		}
+		// 根据食物分量计算系数
+		function getAmountFactor(amount) {
+		    if (amount.includes('碗')) return 1;
+		    if (amount.includes('份')) return 1;
+		    if (amount.includes('片')) return 0.5;
+		    if (amount.includes('个')) return 1;
+		    if (amount.includes('g')) return parseInt(amount) / 100;
+		    return 1;
+		}
+		// 更新单个餐食卡片数据
+		function updateMealCard(mealType, mealData) {
+		    document.getElementById(`${mealType}Time`).textContent = mealData.time || '--:--';
+		    const foodsList = document.getElementById(`${mealType}Foods`);
+		    foodsList.innerHTML = '';
+		    if (mealData.foods && mealData.foods.length > 0) {
+		        mealData.foods.forEach(food => {
+		            const li = document.createElement('li');
+		            li.className = 'flex justify-between items-center';
+		            li.innerHTML = `
+		                <span class="flex items-center">
+		                    <i class="fa fa-check-circle text-green-500 mr-2"></i>
+		                    ${food.name || '未知食物'}
+		                </span>
+		                <span class="text-sm text-neutral">${food.amount || '适量'}</span>
+		            `;
+		            foodsList.appendChild(li);
+		        });
+		    } else {
+		        foodsList.innerHTML = '<li class="text-neutral">无食物记录</li>';
+		    }
+		    
+		    const intakePercent = mealData.intake || 0;
+		    document.getElementById(`${mealType}IntakeBar`).style.width = `${intakePercent}%`;
+		    document.getElementById(`${mealType}IntakeText`).textContent = `${intakePercent}%`;
+		    
+		    document.getElementById(`${mealType}Notes`).textContent = mealData.notes || '无备注信息';
+		}
+		// 设置加载状态
+		function setLoadingState(isLoading) {
+		    const sections = [
+		        document.getElementById('mealsSection'),
+		        document.getElementById('nutritionSection')
+		    ];
+		    sections.forEach(section => {
+		        if (section) {
+		            if (isLoading) {
+		                section.classList.add('loading');
+		            } else {
+		                section.classList.remove('loading');
+		            }
+		        }
+		    });
+		}
+		// 显示无数据消息
+		function showNoDataMessage() {
+		    // 重置所有餐食卡片
+		    ['breakfast', 'lunch', 'dinner'].forEach(mealType => {
+		        document.getElementById(`${mealType}Time`).textContent = '--:--';
+		        document.getElementById(`${mealType}Foods`).innerHTML = '<li class="text-neutral">无食物记录</li>';
+		        document.getElementById(`${mealType}IntakeBar`).style.width = '0%';
+		        document.getElementById(`${mealType}IntakeText`).textContent = '0%';
+		        document.getElementById(`${mealType}Notes`).textContent = '该日无餐饮记录';
+		    });
+		    // 重置营养数据
+		    resetNutritionData();
+		    updateNutritionCharts();
+		}
+		// 显示错误消息
+		function showErrorMessage() {
+		    ['breakfast', 'lunch', 'dinner'].forEach(mealType => {
+		        document.getElementById(`${mealType}Notes`).textContent = '数据加载失败，请重试';
+		    });
+		}
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化图表
+            initCharts();
+            // 初始化变量
+            let currentDate = new Date(2025, 8, 11); // 2025年9月11日
+            const calendarDaysContainer = document.getElementById('calendarDays');
+            const currentDateText = document.getElementById('currentDateText');
+            // 初始化日历
+            renderCalendar(currentDate);
+            // 加载默认日期数据
+            loadMealDataByDate(formatDate(currentDate));
+            // 前一天按钮事件
+            document.getElementById('prevDay').addEventListener('click', function() {
+                currentDate.setDate(currentDate.getDate() - 1);
+                renderCalendar(currentDate);
+                loadMealDataByDate(formatDate(currentDate));
+            });
+            // 后一天按钮事件
+            document.getElementById('nextDay').addEventListener('click', function() {
+                currentDate.setDate(currentDate.getDate() + 1);
+                renderCalendar(currentDate);
+                loadMealDataByDate(formatDate(currentDate));
+            });
+            // 今天按钮事件
+            document.getElementById('todayBtn').addEventListener('click', function() {
+                currentDate = new Date();
+                renderCalendar(currentDate);
+                loadMealDataByDate(formatDate(currentDate));
+            });
+            function renderCalendar(date) {
+                const year = date.getFullYear();
+                const month = date.getMonth();
+                // 更新顶部日期显示
+                const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+                currentDateText.textContent = `${year}年${String(month + 1).padStart(2, '0')}月${String(date.getDate()).padStart(2, '0')}日 ${weekdays[date.getDay()]}`
+                // 清空日历容器
+                calendarDaysContainer.innerHTML = '';
+                // 获取当月第一天和最后一天
+                const firstDay = new Date(year, month, 1);
+                const lastDay = new Date(year, month + 1, 0);
+                const daysInMonth = lastDay.getDate();
+                // 获取当月第一天是星期几 (0 = 周日, 1 = 周一, ...)
+                const firstDayOfWeek = firstDay.getDay();
+                // 计算需要显示的上月天数
+                const daysFromPrevMonth = firstDayOfWeek;
+                // 填充上月日期
+                const prevMonthLastDay = new Date(year, month, 0).getDate();
+                for (let i = 0; i < daysFromPrevMonth; i++) {
+                    const day = prevMonthLastDay - (daysFromPrevMonth - 1 - i);
+                    const dateObj = new Date(year, month - 1, day);
+                    const dayElement = createDayElement(dateObj, false);
+                    calendarDaysContainer.appendChild(dayElement);
+                }
+                // 填充当月日期
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const dateObj = new Date(year, month, day);
+                    const isToday = isSameDay(dateObj, new Date());
+                    const isSelected = isSameDay(dateObj, date);
+                    const dayElement = createDayElement(dateObj, true, isToday, isSelected);
+                    calendarDaysContainer.appendChild(dayElement);
+                }
+                // 计算需要显示的下月天数
+                const totalCells = daysFromPrevMonth + daysInMonth;
+                const daysFromNextMonth = 42 - totalCells; // 6行x7天=42个单元格
+                // 填充下月日期
+                for (let day = 1; day <= daysFromNextMonth; day++) {
+                    const dateObj = new Date(year, month + 1, day);
+                    const dayElement = createDayElement(dateObj, false);
+                    calendarDaysContainer.appendChild(dayElement);
+                }
+            }
+            function createDayElement(date, isCurrentMonth, isToday = false, isSelected = false) {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'calendar-day';
+                if (!isCurrentMonth) {
+                    dayElement.classList.add('other-month');
+                } else {
+                    dayElement.classList.add('current-month');
+                }
+                if (isToday) {
+                    dayElement.classList.add('today');
+                }
+                if (isSelected) {
+                    dayElement.classList.add('selected');
+                }
+                dayElement.textContent = date.getDate();
+                // 添加点击事件
+                dayElement.addEventListener('click', function() {
+                    if (isCurrentMonth) {
+                        currentDate = new Date(date);
+                        renderCalendar(currentDate);
+                        loadMealDataByDate(formatDate(currentDate));
+                    }
+                });
+                return dayElement;
+            }
+            function isSameDay(date1, date2) {
+                return date1.getFullYear() === date2.getFullYear() &&
+                       date1.getMonth() === date2.getMonth() &&
+                       date1.getDate() === date2.getDate();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>订单接受与记录</title>
+		<link rel="stylesheet" href="https://cdn.staticfile.net/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
+		<script src="https://cdn.staticfile.net/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="//unpkg.com/layui@2.11.6/dist/css/layui.css" media="all">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="../lib/layui-v2.6.3/css/layui.css" media="all">
+		<link rel="stylesheet" href="../css/public.css" media="all">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+		<style>
+			#firstdiv{
+				background-image: url("../img/bg.jpg");
+				height: 150px;
+				text-align: center;
+				color: white;
+				padding-top: 50px;
+				font-size: 50px;
+				font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+			}
+			#seconddiv{
+				background-color:white;
+				height: 90px;
+				padding-top: 15px;
+			}
+			#b{
+				padding-left: 35px;
+				padding-bottom: 10px;
+				font-size: 35px;
+			}
+			#q{
+				background-color: #16BAAA;
+			}
+			#w{
+				width: 88%;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="firstdiv">
+			<b>欢 &nbsp&nbsp;迎&nbsp;&nbsp 进&nbsp;&nbsp 入&nbsp;&nbsp 敬&nbsp;&nbsp 老&nbsp;&nbsp 院&nbsp;&nbsp 运&nbsp;&nbsp 营&nbsp;&nbsp 系&nbsp;&nbsp 统</b>
+		</div>
+		<div class="layui-side layui-bg-black layuimini-left" layuimini-tab-tag="no">
+		<ul class="layui-nav layui-nav-tree">
+			
+		  <li class="layui-nav-item">
+		    <a href="../首页.html"><i class="fa fa-home mr-2"></i>首页</a>
+		  </li>
+		  <li class="layui-nav-item">
+		    <a><i class="fa fa-hand-paper-o mr-2"></i>服务管理</a>
+		    <dl class="layui-nav-child">
+		      <dd><a href="../服务管理/生活需求管理.html">生活需求管理</a></dd>
+		      <dd><a href="../服务管理/需求记录跟踪.html">需求记录跟踪</a></dd>
+		    </dl>
+		  </li>
+		  <li class="layui-nav-item">
+		    <a><i class="fa fa-heartbeat mr-2"></i>健康管理</a>
+		    <dl class="layui-nav-child">
+		      <dd><a href="../健康管理/实时健康指标查看.html">实时健康指标查看</a></dd>
+		      <dd><a href="../健康管理/健康数据历史查询.html">健康数据历史查询</a></dd>
+		    </dl>
+		  </li>
+		  <li class="layui-nav-item">
+		    <a><i class="fa fa-cutlery mr-2"></i>餐饮管理</a>
+		    <dl class="layui-nav-child">
+		      <dd><a href="../餐饮管理/健康饮食方案制定.html">健康饮食方案制定</a></dd>
+		      <dd><a href="../餐饮管理/每日餐食记录.html">每日餐食记录</a></dd>
+		    </dl>
+		  </li>
+		  <li class="layui-nav-item">
+		    <a><i class="fa fa-futbol-o mr-2"></i>活动管理</a>
+		    <dl class="layui-nav-child">
+		      <dd><a href="../活动管理/日常娱乐活动管理.html">日常娱乐活动管理</a></dd>
+		      <dd><a href="../活动管理/大型娱乐活动统筹.html">大型娱乐活动统筹</a></dd>
+		    </dl>
+		  </li>
+		  <li class="layui-nav-item">
+		    <a><i class="fa fa-users mr-2"></i>客户管理</a>
+		    <dl class="layui-nav-child">
+		      <dd><a href="../客户管理/客户信息录入.html">客户信息录入</a></dd>
+		      <dd><a href="../客户管理/客户信息查询管理.html">客户信息查询管理</a></dd>
+			  <dd><a href="../客户管理/客户统计.html">客户统计</a></dd>
+		    </dl>
+		  </li>
+		  <li class="layui-nav-item">
+		    <a><i class="fa fa-list-alt mr-2"></i>订单管理</a>
+		    <dl class="layui-nav-child">
+		      <dd><a href="../订单管理/订单接受与记录.html">订单接收与记录</a></dd>
+		      <dd><a href="../订单管理/订单处理与跟踪.html">订单处理与跟踪</a></dd>
+			</dl>
+		  </li>
+		</ul>
+		<script src="//unpkg.com/layui@2.11.6/dist/layui.js"></script>
+		</div>
+		<div class="layui-body" id="w">
+		<div id="b">
+			<b>订单接受与记录</b>
+		</div>
+		
+		<div id="main-content" class="container">
+		        <div class="card content-card">
+		            <div class="card-header  text-white" id="q">
+		                <h5 class="card-title mb-0">待接收订单列表</h5>
+		            </div>
+		            <div class="card-body">
+		                <div class="table-responsive">
+		                    <table class="table table-hover">
+		                        <thead class="table-light">
+		                            <tr>
+		                                <th>订单编号</th>
+		                                <th>客户姓名</th>
+		                                <th>服务类型</th>
+		                                <th>提交时间</th>
+		                                <th>服务需求</th>
+		                                <th>操作</th>
+		                            </tr>
+		                        </thead>
+		                        <tbody>
+		                            <tr>
+		                                <td>OD2024051001</td>
+		                                <td>张XX</td>
+		                                <td>上门护理</td>
+		                                <td>2024-05-10 09:20</td>
+		                                <td>基础护理（血压测量+伤口换药）</td>
+		                                <td>
+		                                    <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#acceptOrderModal" onclick="setOrderInfo('OD2024051001', '张XX', '上门护理')">接受订单</button>
+		                                    <button class="btn btn-sm btn-danger ms-1" data-bs-toggle="modal" data-bs-target="#rejectOrderModal" onclick="setOrderInfo('OD2024051001', '张XX', '上门护理')">拒绝订单</button>
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <td>OD2024051002</td>
+		                                <td>李XX</td>
+		                                <td>餐饮定制</td>
+		                                <td>2024-05-10 10:15</td>
+		                                <td>低糖低脂餐（每日配送，持续7天）</td>
+		                                <td>
+		                                    <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#acceptOrderModal" onclick="setOrderInfo('OD2024051002', '李XX', '餐饮定制')">接受订单</button>
+		                                    <button class="btn btn-sm btn-danger ms-1" data-bs-toggle="modal" data-bs-target="#rejectOrderModal" onclick="setOrderInfo('OD2024051002', '李XX', '餐饮定制')">拒绝订单</button>
+		                                </td>
+		                            </tr>
+		                        </tbody>
+		                    </table>
+		                </div>
+		                <div id="noOrderTip" class="text-center text-muted py-3" style="display: none;">
+		                    暂无待接收订单
+		                </div>
+		            </div>
+		        </div>
+		        <div class="card content-card">
+		            <div class="card-header bg-secondary text-white">
+		                <h5 class="card-title mb-0">新订单手动录入</h5>
+		            </div>
+		            <div class="card-body">
+		                <form id="manualOrderForm">
+		                    <div class="row g-3">
+		                        <div class="col-md-4">
+		                            <label class="form-label" for="customerName">客户姓名 <span class="text-danger">*</span></label>
+		                            <input type="text" class="form-control" id="customerName" required placeholder="请输入客户姓名">
+		                        </div>
+		                        <div class="col-md-4">
+		                            <label class="form-label" for="customerPhone">客户电话 <span class="text-danger">*</span></label>
+		                            <input type="tel" class="form-control" id="customerPhone" required placeholder="请输入11位手机号">
+		                        </div>
+		                        <div class="col-md-4">
+		                            <label class="form-label" for="serviceType">服务类型 <span class="text-danger">*</span></label>
+		                            <select class="form-select" id="serviceType" required>
+		                                <option value="">请选择服务类型</option>
+		                                <option value="上门护理">上门护理</option>
+		                                <option value="餐饮定制">餐饮定制</option>
+		                                <option value="健康检查">健康检查</option>
+		                                <option value="康复辅助">康复辅助</option>
+		                            </select>
+		                        </div>
+		                        <div class="col-md-4">
+		                            <label class="form-label" for="serviceDate">服务日期 <span class="text-danger">*</span></label>
+		                            <input type="date" class="form-control" id="serviceDate" required>
+		                        </div>
+		                        <div class="col-md-4">
+		                            <label class="form-label" for="serviceDuration">服务时长</label>
+		                            <input type="text" class="form-control" id="serviceDuration" placeholder="如：2小时/7天（可选）">
+		                        </div>
+		                        <div class="col-md-4">
+		                            <label class="form-label" for="orderAmount">订单金额（元） <span class="text-danger">*</span></label>
+		                            <input type="number" class="form-control" id="orderAmount" required placeholder="请输入数字">
+		                        </div>
+		                        <div class="col-12">
+		                            <label class="form-label" for="serviceDesc">服务需求详情 <span class="text-danger">*</span></label>
+		                            <textarea class="form-control" id="serviceDesc" rows="3" required placeholder="请详细描述客户需求（如：护理项目、饮食禁忌等）"></textarea>
+		                        </div>
+		                        <div class="col-12 text-end">
+		                            <button type="submit" class="btn btn-primary">提交订单记录</button>
+		                            <button type="reset" class="btn btn-secondary ms-2">重置表单</button>
+		                        </div>
+		                    </div>
+		                </form>
+		            </div>
+		        </div>
+		    </div>
+			</div>
+		
+		    <!-- 模态框1：接受订单确认弹窗 -->
+		    <div class="modal fade" id="acceptOrderModal" tabindex="-1">
+		        <div class="modal-dialog">
+		            <div class="modal-content">
+		                <div class="modal-header bg-success text-white">
+		                    <h5 class="modal-title">确认接受订单</h5>
+		                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+		                </div>
+		                <div class="modal-body">
+		                    <p>您确定要接受以下订单吗？</p>
+		                    <ul class="list-unstyled">
+		                        <li><strong>订单编号：</strong><span id="modalOrderId">-</span></li>
+		                        <li><strong>客户姓名：</strong><span id="modalCustomerName">-</span></li>
+		                        <li><strong>服务类型：</strong><span id="modalServiceType">-</span></li>
+		                    </ul>
+		                    <p class="text-muted small">接受后，订单将转入“订单处理与跟踪”模块。</p>
+		                </div>
+		                <div class="modal-footer">
+		                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+		                    <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="showSuccessTip('订单接受成功！')">确认接受</button>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		
+		    <!-- 模态框2：拒绝订单弹窗（需填写拒绝原因） -->
+		    <div class="modal fade" id="rejectOrderModal" tabindex="-1">
+		        <div class="modal-dialog">
+		            <div class="modal-content">
+		                <div class="modal-header bg-danger text-white">
+		                    <h5 class="modal-title">确认拒绝订单</h5>
+		                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+		                </div>
+		                <div class="modal-body">
+		                    <p>请填写拒绝订单的原因（将通知客户）：</p>
+		                    <ul class="list-unstyled mb-3">
+		                        <li><strong>订单编号：</strong><span id="modalRejectOrderId">-</span></li>
+		                        <li><strong>客户姓名：</strong><span id="modalRejectCustomerName">-</span></li>
+		                    </ul>
+		                    <textarea class="form-control" id="rejectReason" rows="2" required placeholder="如：暂时无护理人员，建议调整服务时间"></textarea>
+		                </div>
+		                <div class="modal-footer">
+		                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+		                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="showSuccessTip('订单拒绝成功，已通知客户！')">确认拒绝</button>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		
+		    <!-- 4. 交互脚本（实现订单信息传递、表单提交反馈等） -->
+		    <script>
+		        // 1. 传递订单信息到模态框
+		        function setOrderInfo(orderId, customerName, serviceType) {
+		            // 给“接受订单”模态框赋值
+		            document.getElementById('modalOrderId').textContent = orderId;
+		            document.getElementById('modalCustomerName').textContent = customerName;
+		            document.getElementById('modalServiceType').textContent = serviceType;
+		            
+		            // 给“拒绝订单”模态框赋值
+		            document.getElementById('modalRejectOrderId').textContent = orderId;
+		            document.getElementById('modalRejectCustomerName').textContent = customerName;
+		        }
+		
+		        // 2. 显示操作成功提示（可替换为后端接口请求成功后的反馈）
+		        function showSuccessTip(message) {
+		            // 创建提示元素
+		            const tip = document.createElement('div');
+		            tip.className = 'alert alert-success fixed-top mt-2 mx-auto w-50 text-center';
+		            tip.role = 'alert';
+		            tip.textContent = message;
+		            document.body.appendChild(tip);
+		            
+		            // 3秒后自动移除提示
+		            setTimeout(() => {
+		                tip.style.opacity = '0';
+		                tip.style.transition = 'opacity 0.5s';
+		                setTimeout(() => {
+		                    document.body.removeChild(tip);
+		                }, 500);
+		            }, 3000);
+		        }
+		
+		        // 3. 新订单录入表单提交处理
+		        document.getElementById('manualOrderForm').addEventListener('submit', function(e) {
+		            e.preventDefault(); // 阻止表单默认提交
+		            // 获取表单数据（实际项目中需验证数据格式，如手机号、金额）
+		            const customerName = document.getElementById('customerName').value;
+		            const serviceType = document.getElementById('serviceType').value;
+		            
+		            // 显示提交成功提示
+		            showSuccessTip(`订单录入成功！客户：${customerName}，服务类型：${serviceType}`);
+		            
+		            // 重置表单
+		            this.reset();
+		        });
+		    </script>
+	</body>
+</html>
